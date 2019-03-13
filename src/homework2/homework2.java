@@ -73,6 +73,7 @@ public class homework2 {
               a2=a3;
 
         }
+        System.out.println("");
 ///---------------------------------------------------------------------------------------------------------
         System.out.println("---------------------Задача6-------------------------");
         System.out.println(" Число счатсливых билетов в трамвае 000001..999999 ");
@@ -110,13 +111,13 @@ public class homework2 {
         t3=j/10;
         t4=j-t3*10;
           //  System.out.println(i+":"+j+" t1 "+t1+" t2 "+t2+" t3 "+t3+" t4 "+t4);
-if ((t1==t4)&&(t2==t3))
-
+if ((t1==t4)&&(t2==t3)&&(t1!=t3)&&(t2!=t4))
     System.out.println(i+":"+j);
-else if ((t1==t3)&&(t2==t4))
+else if ((t1==t2)&&(t2==t3)&&(t3==t4))
     System.out.println(i+":"+j);
 else
-    continue;        }
+    continue;
+        }
 
 
 
