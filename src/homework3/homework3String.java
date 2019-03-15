@@ -71,34 +71,41 @@ public class homework3String {
         String adres = inn.nextLine();///ввод строки
         char[] str5 = adres.toCharArray();
         int[] numera= new int[adres.length()];;
-        int j=0;
-
-      ///  System.out.println("разбивает строки: " + Arrays.toString(adres.split("")));//разбивает
-
+        StringBuilder doc=new StringBuilder();
 
 
            char a2,b2;
 
+           int kol=0;
+           boolean pr=false;
 
-        //for (int i=0; i<str5.length;i++)
+        for (int i=0; i<str5.length;i++)
         {
+            a2 = str5[i];
+            if (a2 == '0' || a2 == '1' || a2 == '2' || a2 == '3' || a2 == '4' ||
+                    a2 == '5' || a2 == '6' || a2 == '7' || a2 == '8' || a2 == '9')
+           {
+                doc.append(a2);
+                pr=true;
+                  }
+            else if (pr==false)  continue;
+            else
+            {
+                int a1 = Integer.parseInt(doc.toString());
+                numera[kol] = a1;
+                kol=kol+1;
+                doc=new StringBuilder();
+                pr=false;
+            }
 
-            //if ()
-             //   int j;
-           // for (int j=i+1; i<str5.length;i++)
-
-
-
-          //  b2=str5[i+1]; a2=str5[i];
-          //  if ( a2 == '0' ||  a2== '1' ||  a2 == '2' || a2 == '3' ||  a2 == '4' ||
-          //          a2 == '5' ||  a2== '6' ||  a2 == '7' ||  a2 == '8' ||  a2 == '9') {
-
-          //      int a1 = Integer.parseInt("" + str5[i]);
-          //      numera[j] = a1;
-          //      j++;
-          //  }
         }
-        //    System.out.println("массив цифр- "+Arrays.toString(numera));
+////для послденего элемента
+        if (pr==true) {
+            int a1 = Integer.parseInt(doc.toString());
+            numera[kol] = a1;
+        }
+
+         System.out.println("массив цифр- "+Arrays.toString(numera));
 
     }
 
