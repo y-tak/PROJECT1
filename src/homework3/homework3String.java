@@ -80,8 +80,11 @@ public class homework3String {
            boolean pr=false;
 
         for (int i=0; i<str5.length;i++)
-        {
+
             a2 = str5[i];
+            char a;
+        //Character.isDigit('1');
+
             if (a2 == '0' || a2 == '1' || a2 == '2' || a2 == '3' || a2 == '4' ||
                     a2 == '5' || a2 == '6' || a2 == '7' || a2 == '8' || a2 == '9')
            {
