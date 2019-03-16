@@ -49,17 +49,30 @@ public class homework4 {
         color=inn.nextLine();
         System.out.println(" ");
         adress="плоавло";
+        Dogs dogs1=new Dogs();
 
-        Dogs dogs=new Dogs(clichka);
-        Dogs dogs1=new Dogs(clichka,ves,age);
-        Dogs dogs2=new Dogs(clichka,age);
-        Dogs dogs3=new Dogs(ves,color);
-        Dogs dogs4=new Dogs(ves,color,adress);
+        if (ves!=0 &&color!=null) {
+          dogs1=new Dogs(ves,color);
+        } else if (ves!=0&&color!=null&adress!=null)
+        {dogs1=new Dogs(ves,color,adress);}
+        else if (clichka!=null&&age!=0)
+        {  dogs1=new Dogs(clichka,age);}
+        else if (clichka!=null&&age!=0&&ves!=0)
+        {   dogs1=new Dogs(clichka,ves,age);}
+        else
+        { dogs1=new Dogs(clichka);}
+
+
+        //Dogs dogs=new Dogs(clichka);
+        //Dogs dogs1=new Dogs(clichka,ves,age);
+        //Dogs dogs2=new Dogs(clichka,age);
+        //Dogs dogs3=new Dogs(ves,color);
+        //Dogs dogs4=new Dogs(ves,color,adress);
 
         System.out.println("dogs1 = " + dogs1);
-        System.out.println("dogs2 = " + dogs2);
-        System.out.println("dogs3 = " + dogs3);
-        System.out.println("dogs4 = " + dogs4);
+       // System.out.println("dogs2 = " + dogs2);
+        //System.out.println("dogs3 = " + dogs3);
+        //System.out.println("dogs4 = " + dogs4);
 
         System.out.println(" --------------Задача 4------------------------------ ");
         System.out.println(" битва котиков");

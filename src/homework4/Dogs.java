@@ -56,7 +56,9 @@ public class Dogs {
         this.name ="Дворняжка";
     }
 
-
+    public Dogs() {
+        this.name ="Дворняжка";
+    }
 
     public void setVes(double ves)
     {
