@@ -41,6 +41,8 @@ public class Dogs {
         else
             this.ves= ves;
         this.color = color;
+        this.name ="Дворняжка";
+
     }
     public Dogs( double ves,  String color,String adress)
     {
@@ -51,6 +53,7 @@ public class Dogs {
 
         this.color = color;
         this.adress = adress;
+        this.name ="Дворняжка";
     }
 
 

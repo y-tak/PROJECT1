@@ -47,8 +47,9 @@ public class homework4 {
         age=inn.nextInt();
         System.out.println(" Введите цвет ");
         color=inn.nextLine();
-        System.out.println(" Введите адрес ");
-        adress=inn.nextLine();
+        System.out.println(" ");
+        adress="плоавло";
+
         Dogs dogs=new Dogs(clichka);
         Dogs dogs1=new Dogs(clichka,ves,age);
         Dogs dogs2=new Dogs(clichka,age);
@@ -83,6 +84,9 @@ public class homework4 {
 
         Cats cat1=new Cats(age1,power1,ves1);
         Cats cat2=new Cats(age2,power2,ves2);
+        System.out.println("cat1 = " + cat1);
+        System.out.println("cat2 = " + cat2);
+
         if(cat1.fight(cat2)==true) System.out.println("победил 1 котик ");
         else System.out.println("победил 2 котик ");
 
