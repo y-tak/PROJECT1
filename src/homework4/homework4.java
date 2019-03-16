@@ -60,6 +60,33 @@ public class homework4 {
         System.out.println("dogs3 = " + dogs3);
         System.out.println("dogs4 = " + dogs4);
 
+        System.out.println(" --------------Задача 4------------------------------ ");
+        System.out.println(" битва котиков");
+        int age1,age2,age11,age21;
+        int power1,power2;
+        int ves1,ves2;
+
+        System.out.println(" Введите вес 1 котика");
+        ves1=inn.nextInt();
+        System.out.println(" Введите силу 1 котика");
+        power1=inn.nextInt();
+        System.out.println(" Введите возраст 1 котика");
+        age1=inn.nextInt();
+
+
+        System.out.println(" Введите вес 2 котика");
+        ves2=inn.nextInt();
+        System.out.println(" Введите силу 2 котика");
+        power2=inn.nextInt();
+        System.out.println(" Введите возраст 2 котика");
+        age2=inn.nextInt();
+
+        Cats cat1=new Cats(age1,power1,ves1);
+        Cats cat2=new Cats(age2,power2,ves2);
+        if(cat1.fight(cat2)==true) System.out.println("победил 1 котик ");
+        else System.out.println("победил 2 котик ");
+
+
     }
 
 
