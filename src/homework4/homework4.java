@@ -46,14 +46,16 @@ public class homework4 {
         System.out.println(" Введите возраст ");
         age=inn.nextInt();
         System.out.println(" Введите цвет ");
-        color=inn.nextLine();
+        color=inn.next();
+        System.out.println(" Введите адрес, если домашний ");
+        adress=inn.next();
         System.out.println(" ");
-        adress="плоавло";
+        //adress="Санкт-Петербург";
         Dogs dogs1=new Dogs();
 
-        if (ves!=0 &&color!=null) {
+        if (ves!=0 &&color!=null&&adress==null) {
           dogs1=new Dogs(ves,color);
-        } else if (ves!=0&&color!=null&adress!=null)
+        } else if (ves!=0&&color!=null&&adress!=null)
         {dogs1=new Dogs(ves,color,adress);}
         else if (clichka!=null&&age!=0)
         {  dogs1=new Dogs(clichka,age);}
