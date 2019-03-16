@@ -28,41 +28,38 @@ public class homework3String {
         System.out.println("Введите строку  ");//// "abc cde def"
         String str3 = inn.nextLine();///ввод строки
         String output1 = str3.replace(" ", "");
-     //   System.out.println("у вас получилось строка: " + output1);         //
+        //   System.out.println("у вас получилось строка: " + output1);         //
 
         String a, b, output3;
 
-        StringBuilder stringBuilder1=new StringBuilder();//объект StringBilder
+        StringBuilder stringBuilder1 = new StringBuilder();//объект StringBilder
         char[] str4 = output1.toCharArray();
 
-       // System.out.println("массив букв "+Arrays.toString(str4));
-        int pos=1;
-        for (int i=1; i<str4.length;i++)        {
+        // System.out.println("массив букв "+Arrays.toString(str4));
+        int pos = 1;
+        for (int i = 1; i < str4.length; i++) {
             int j;
-            for (j = 0; j < pos; j++)
-            {
+            for (j = 0; j < pos; j++) {
                 if (str4[i] == str4[j])
-                break;
+                    break;
             }
 
-            if (j == pos)
-                {
-                    str4[pos] = str4[i];
-                    pos++;
-                }
-                else
-                    {
-                    str4[pos] = 0;
-                    pos++; }
+            if (j == pos) {
+                str4[pos] = str4[i];
+                pos++;
+            } else {
+                str4[pos] = 0;
+                pos++;
             }
+        }
 
 
-      for (char str5:str4)
-            {
-                if (str5!=0) stringBuilder1.append(str5);
-           };
+        for (char str5 : str4) {
+            if (str5 != 0) stringBuilder1.append(str5);
+        }
+        ;
         // stringBuilder1.append(output3);
-       System.out.println("получили - "+stringBuilder1.toString());
+        System.out.println("получили - " + stringBuilder1.toString());
 
 
         System.out.println(" ----------------Задача 3-----------------------------");
@@ -70,38 +67,36 @@ public class homework3String {
         System.out.println("Введите строку  ");//// "дом 48, корпус 9, парадная 7, этаж 4"
         String adres = inn.nextLine();///ввод строки
         char[] str5 = adres.toCharArray();
-        int[] numera= new int[adres.length()];;
-        StringBuilder doc=new StringBuilder();
+        int[] numera = new int[adres.length()];
+        ;
+        StringBuilder doc = new StringBuilder();
 
 
-           char a2,b2;
+        char a2, b2;
 
-           int kol=0;
-           boolean pr=false;
+        int kol = 0;
+        boolean pr = false;
 
-        for (int i=0; i<str5.length;i++)
+        for (int i = 0; i < str5.length; i++) {
 
             a2 = str5[i];
-            char a;
-        //Character.isDigit('1');
+            // char a;
+            //Character.isDigit('1');
 
             if (a2 == '0' || a2 == '1' || a2 == '2' || a2 == '3' || a2 == '4' ||
-                    a2 == '5' || a2 == '6' || a2 == '7' || a2 == '8' || a2 == '9')
-           {
+                    a2 == '5' || a2 == '6' || a2 == '7' || a2 == '8' || a2 == '9') {
                 doc.append(a2);
-                pr=true;
-                  }
-            else if (pr==false)  continue;
-            else
-            {
+                pr = true;
+            } else if (pr == false) continue;
+            else {
                 int a1 = Integer.parseInt(doc.toString());
                 numera[kol] = a1;
-                kol=kol+1;
-                doc=new StringBuilder();
-                pr=false;
+                kol = kol + 1;
+                doc = new StringBuilder();
+                pr = false;
             }
-
         }
+
 ////для послденего элемента
         if (pr==true) {
             int a1 = Integer.parseInt(doc.toString());
