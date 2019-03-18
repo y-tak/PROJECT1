@@ -41,9 +41,11 @@ public class Cats {
         else age21=age2;
         s1=age11+power1+ves1;
         s2=age21+power2+ves2;
-        if (s1>s2) victory=true;
-        else victory=false;
 
-        return victory;
+      return s1<s2;
+        ///if (s1>s2) victory=true;
+     ///  else victory=false;
+       // return victory;
+
     }
 }

@@ -18,7 +18,24 @@ public class homework4 {
         ///удаляет запись
         node.removeNode(11,node);
         System.out.println("удалили с конца 11 запись| " + node);
-
+///--------------------------------другое решение--------------------------
+        List myList = new List();
+        myList.add(7);
+        myList.add(19);
+        System.out.println(myList);
+        myList.remove();
+        System.out.println(myList);
+        for (int i = 0; i < 10 ; i++) {
+            myList.add(i);
+        }
+        myList.add(20);
+        System.out.println(myList);
+        myList.remove();
+        while(myList.getFirstNod()!=null){
+            myList.remove();
+            System.out.println(myList);
+        }
+        ////-------------------------------------------
 
         System.out.println(" --------------Задача 2------------------------------ ");
         System.out.println(" фигуры ");

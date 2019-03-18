@@ -5,6 +5,7 @@ public class Dogs {
     String name;
     double ves;
     int age;
+    ////int age=3.5;
     String color;
     String adress;
 

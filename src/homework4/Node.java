@@ -7,7 +7,8 @@ public class Node {
     private int index;
     private Node nextNode;
 
-    public Node() {
+    public Node()
+    {
     }
 
     public Node(int index)
@@ -41,4 +42,6 @@ public class Node {
     public String toString() {
         return "  {" +index +" --> "+ nextNode+"}";
     }
+
+
 }
