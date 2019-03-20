@@ -13,17 +13,16 @@ public class ListObject extends Object implements List {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
 
         return "Object [" + positionStart +"] ";
-
     }
+
+
 
     @Override
     public void list() {
-
-
-
 ///---организованный вывод
         System.out.print(" запись ");
         for (int j = 0; j < this.getPositionStart(); j++)        {
@@ -33,7 +32,7 @@ public class ListObject extends Object implements List {
 
             System.out.print(" " +enemy);
         }
-
+        System.out.print(" " +this);
 
     }
 
