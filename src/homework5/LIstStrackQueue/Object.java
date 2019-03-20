@@ -1,25 +1,47 @@
 package homework5.LIstStrackQueue;
 
 public class Object {
-    int position;
+    protected int positionStart;
+    private Object nextObject;
 
     public Object() {
+        this.positionStart =0;
+
     }
 
-    public Object(int position) {
-        this.position = position;
+    public Object(int positionStart, Object nextObject) {
+        if (positionStart==0)
+        {
+            this.positionStart = 1;
+            this.nextObject = new Object();
+        }
+        else
+            {
+            this.positionStart = positionStart;
+            this.nextObject = nextObject;
+        }
     }
 
-    public int getPosition() {
-        return position;
+    public Object getNextObject() {
+        return nextObject;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setNextObject(Object nextObject) {
+        this.nextObject = nextObject;
+    }
+
+
+    public int getPositionStart() {
+        return positionStart;
+    }
+
+    public void setPositionStart(int positionStart)
+    {
+        this.positionStart = positionStart;
     }
 
     @Override
     public String toString() {
-        return "Object{" + "position=" + position +'}';
+        return "Object [" + positionStart +']';
     }
 }
