@@ -1,6 +1,6 @@
 package lesson6.nested;
-
 import java.util.Iterator;
+
 
 public class LinkedList implements Iterable{
     private Node head;
@@ -27,7 +27,6 @@ public class LinkedList implements Iterable{
 
         if (idx == 0) {
             int val = head.value;
-
             head = head.next;
 
             return val;
@@ -82,7 +81,6 @@ public class LinkedList implements Iterable{
             this.next = node;
         }
 
-
         @Override
         public boolean hasNext() {
             return next != null;
@@ -94,6 +92,9 @@ public class LinkedList implements Iterable{
             next = next.next;
             return cur;
         }
+
+
+
     }
 }
 

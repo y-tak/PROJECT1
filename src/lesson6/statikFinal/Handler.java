@@ -5,7 +5,7 @@ public interface Handler {
     public void read();
     public void write();
 
-    public static Handler getInstance(String fileName){
+     public static Handler getInstance(String fileName){
         Handler handler = null;
 
         if (fileName.endsWith(".xml")) {
