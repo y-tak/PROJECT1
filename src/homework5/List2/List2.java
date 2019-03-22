@@ -55,6 +55,10 @@ public class List2 implements Iterable {
         return -1;
     }
 
+    public Record getStart() {
+        return start;
+    }
+
     ///----------------------поиск записи предыдуща яии последующая?---------
     private Record find(int idx) {
         if (idx == 0)
