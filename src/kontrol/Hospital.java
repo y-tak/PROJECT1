@@ -39,6 +39,11 @@ public class Hospital
     private void openDoctor()
     {
         System.out.println("Добро Пожаловать доктор " );
+
+        for (Patient t:patient)
+              {
+                  System.out.println("пац"+t);
+        }
         exit();
     }
 ////--------------------------------------
@@ -70,9 +75,9 @@ public class Hospital
 
         Scanner in2=new Scanner(System.in);
 
-        System.out.println("Выбрать врача:" +doctor1.getName()+"1");
-        System.out.println("Выбрать врача:" +doctor2.getName()+"2");
-        System.out.println("Выбрать врача:" +doctor3.getName()+"3");
+        System.out.println("Выбрать врача:" +doctor1.getName()+"  1");
+        System.out.println("Выбрать врача:" +doctor2.getName()+"  2");
+        System.out.println("Выбрать врача:" +doctor3.getName()+"  3");
 
         String a=in2.nextLine();
 
@@ -93,20 +98,20 @@ public class Hospital
         Zapis zapis = new Zapis(doctor2, p, date1, number);
         zapis.setActiv(false);
 
-          // int i = jurnals.length;
+          int i = jurnals.length;
+         if (i==0)  this.jurnals[0] = zapis;
+         else {
+             for (int j = 0; j < i; j++)
+                 if (jurnals[j].hashCode() == zapis.hashCode()) {
+                     System.out.println(" запись уже есть! поdторите ввод времени ");
+                     exit();
+                     return;
+                 }
 
-          // for (int j = 0; j < i; j++)
-           //    {
-           //        if (jurnals[j].hashCode() == zapis.hashCode())
-           //    {
-            //       System.out.println(" запись уже есть! поdторите ввод времени ");
-           //        exit();
-           //        return ;
-           //    }
-         //  }
-               this.jurnals[0] = zapis;
-        System.out.println("создана запись "+zapis);
-               exit();
+             this.jurnals[0] = zapis;
+             System.out.println("создана запись " + zapis);
+             exit();
+         }
 
     }
 
@@ -158,8 +163,13 @@ public class Hospital
 
         {
             System.out.println(" это пациент");
-            Patient patient=new Patient(pas);
-            openPatient(patient);
+            Patient patient1=new Patient(pas);
+
+          //  if (patient.length==0) this.patient[0]=patient1;
+        //    else
+          //  this.patient[patient.length+1]=patient1;
+
+          openPatient(patient1);
             return;
         }
 
