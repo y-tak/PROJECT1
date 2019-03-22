@@ -19,6 +19,8 @@ public class List2 implements Iterable {
         find(-1).next = new Record(value,object);
     }
 
+
+
     ///---------------------получить запись------------
     public int get(int idx) {
         Record res = find(idx);
@@ -117,5 +119,10 @@ class Record {
     public Record(int value,Object object) {
         this.value = value;
         this.object=object;
+    }
+
+    public void setNext(Record next)
+    {
+        this.next = next;
     }
 }
