@@ -8,6 +8,11 @@ public class Main {
                 .build();
 
         System.out.println(apple);
+SomeClass someClass=new SomeClass();
+someClass.someVoid();
+
+
+
 
         LinkedList list = new LinkedList();
         list.add(3);

@@ -25,6 +25,7 @@ class SomeClass{
                 System.out.println("log smth 2");
             }
         };
+        logger1.log();
 
     }
 }

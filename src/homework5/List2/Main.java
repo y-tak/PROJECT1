@@ -4,6 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        System.out.println("Примеры работы LIST со списком добавить и удалить");
        List2 list = new List2();
 
         list.add(3,"a");
@@ -24,7 +25,9 @@ public class Main {
         {
             System.out.println(o);
         }
-        System.out.println("-----------------");
+        System.out.println("---------------------------------------------------");
+        System.out.println("----------------------Новый список--------------- ");
+
        RecodrNote recodrNote=new RecodrNote();
         recodrNote.add(3,"a");
         recodrNote.add(4,"b");
@@ -32,13 +35,32 @@ public class Main {
         recodrNote.add(6,"d");
         recodrNote.add(7,"e");
         recodrNote.add(8,"f");
-        //recodrNote.queuqeue();
         for (Object o: recodrNote)
         {
             System.out.println(o);
         }
 
+        System.out.println("добавим элемент {9} [g] ");
+        System.out.println("Пример QUEU Первым вошел --> первым вышел ");
+        recodrNote.queuqeue(9,"g");
 
+        for (Object o: recodrNote)
+        {
+            System.out.println(o);
+        }
 
+        System.out.println("Пример STACK Первым вошел --> последним вышел ");
+        RecodrNote recodrNote1=new RecodrNote();
+        recodrNote1.add(3,"a");
+        recodrNote1.add(4,"b");
+        recodrNote1.add(5,"c");
+        recodrNote1.add(6,"d");
+        recodrNote1.add(7,"e");
+        recodrNote1.add(8,"f");
+        recodrNote1.strackstrack(9,"g");
+        for (Object o: recodrNote1)
+        {
+            System.out.println(o);
+        }
     }
 }
