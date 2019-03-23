@@ -1,7 +1,5 @@
 package homework4;
 
-import com.companyName.lessons.Book;
-
 public class Node {
 
     private int index;

@@ -1,4 +1,4 @@
-package com.companyName.lessons;
+package com.companyName.lessons5;
 
 public class Izdatel {
     private String family;
