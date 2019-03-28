@@ -1,4 +1,4 @@
-package lesson9.collect;
+package lesson9.collect.enumer;
 
 import java.util.*;
 
