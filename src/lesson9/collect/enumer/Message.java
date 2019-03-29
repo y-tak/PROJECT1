@@ -97,12 +97,7 @@ class MessageGenerate {
         {
             messages.add(new Message(random.nextInt(3), MessagePriory.getPriory(random.nextInt(typeC))));
         }
-
-       // for (Message o:messages )
-      //  {
-       //     System.out.println("o = " + o.getCode()+"pr "+o.getPriory());
-      //  }
-        return messages;
+    return messages;
 
         
     }
