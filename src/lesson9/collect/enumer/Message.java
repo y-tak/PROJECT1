@@ -8,13 +8,13 @@ enum  MessagePriory
     LOW,MEDIUM,HIGH,URGENT;
 
 public static MessagePriory getPriory(int ord)
-{
-    for (MessagePriory m:values()) {
+        {
+        for (MessagePriory m:values()) {
         if (m.ordinal()==ord) return m;
-    }
-    throw new AssertionError("ошибка "+ord);
-}
-}
+        }
+        throw new AssertionError("ошибка "+ord);
+        }
+        }
 
 
 public class Message {
@@ -42,16 +42,20 @@ public class Message {
         return priory;
     }
 
+
+
+
     public static void main(String[] args)
         {
 
-
         System.out.println(MessagePriory.HIGH);
-
         MessageGenerate.generate(10);
+
+
 
         
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -72,6 +76,7 @@ public class Message {
     }
 }
 
+
 class MessageGenerate {
 
     public static List<Message> generate(int num)
@@ -86,20 +91,19 @@ class MessageGenerate {
 
         ///values()- количество перечилений enumy
 
-        int typeC = MessagePriory.values().length - 1;
+        int typeC = MessagePriory.values().length;
 
         for (int i = 0; i < num; i++)
         {
-            messages.add(new Message(random.nextInt(), MessagePriory.getPriory(random.nextInt(typeC))));
+            messages.add(new Message(random.nextInt(3), MessagePriory.getPriory(random.nextInt(typeC))));
         }
 
-        for (Message o:messages ) 
-        {
-            System.out.println("o = " + o.getCode()+"pr "+o.getPriory());
-        }
+       // for (Message o:messages )
+      //  {
+       //     System.out.println("o = " + o.getCode()+"pr "+o.getPriory());
+      //  }
         return messages;
 
-       
         
     }
 
