@@ -38,37 +38,17 @@ import java.util.TreeSet;
             Random random = new Random();
             char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
             int val=3;
-
-////-------------------------как убрать в отдельную функцию?---и как к ней обратиться---------
             ///////////-------------------------------------------------------
-            System.out.println("Первое заполнение");
-            for (int i=0;i<val;i++)
-            {
-                StringBuilder sb = new StringBuilder(10);
-                StringBuilder sd = new StringBuilder(20);
-                for (int j = 0; j < 10; j++) {
-                    char c = chars[random.nextInt(chars.length)];
-                    sb.append(c);
-                }
+                     System.out.println("Первое заполнение");
 
-                for (int j = 0; j < 20; j++) {
-                    char d = chars[random.nextInt(chars.length)];
-                    sd.append(d);
-                }
+                    GeneratePerson persong=new GeneratePerson(personTask);
+                     persong.gererate(2);
 
-                int age = (int) (Math.random() * 100);
-                int salary = (int) (Math.random() * 100000);
-                String name = sb.toString();
-                String company = sb.toString();
+                      GeneratePerson persong1=new GeneratePerson(personTask1);
+                      persong1.gererate(3);
 
-                Person peopl=new Person(name,age,salary,company);
-                personTask.add(peopl);
-                personTask1.add(peopl);
-                personTask2.add(peopl);
-
-                System.out.println(peopl);
-            }
-
+                      GeneratePerson persong2=new GeneratePerson(personTask2);
+                      persong2.gererate(4);
 
             System.out.println("Сортировка по имя");
             for (Person person :  personTask) {
@@ -82,55 +62,10 @@ import java.util.TreeSet;
             for (Person person :  personTask2) {
                 System.out.println(person);
             }
-            ////--------------сортировка по имени и зарплате
-
-
 
         }
     }
 ////-------------------------------------------------------------------------------------
-
-
-
-
-//   private void generate(int val,TreeSet<Person> people)
-//    {
-//        Random random = new Random();
-//        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-//
-//
-//        for (int i=0;i<val;i++)
-//        {
-//            StringBuilder sb  = new StringBuilder(10);
-//            StringBuilder sd  = new StringBuilder(20);
-//            for (int j = 0; j < 10; j++)
-//            {
-//                char c = chars[random.nextInt(chars.length)];
-//                sb.append(c);
-//            }
-//
-//            for (int j = 0; j < 20; j++)             {
-//                char d = chars[random.nextInt(chars.length)];
-//                sd.append(d);
-//            }
-//
-//            int age=(int)(Math.random()*100);
-//            int salary=(int)(Math.random()*100000);
-//            String name=sb.toString();
-//            String company=sb.toString();
-//
-//            //Person peopl=new Person(name,age,salary,company);
-//            people.add(new Person(name, age, salary, company));
-//        }
-//
-//
-//
-//
-//    }
-
-///------------------------------------------
-
-
 
     class Person
     {
@@ -255,5 +190,53 @@ import java.util.TreeSet;
     }
 
 
+///------------------класс для генерации--------------------
+
+class GeneratePerson {
+    private TreeSet<Person> personTask;
 
 
+    public void gererate(int val) {
+
+
+        for (int i = 0; i < val; i++)
+        {
+            //  StringBuilder sb = new StringBuilder(10);
+            //  StringBuilder sd = new StringBuilder(20);
+//        for (int j = 0; j < 10; j++) {
+//            char c = chars[random.nextInt(chars.length)];
+//            sb.append(c);
+//        }
+//
+//        for (int j = 0; j < 20; j++) {
+//            char d = chars[random.nextInt(chars.length)];
+//            sd.append(d);
+//        }
+
+            int age = (int) (Math.random() * 100);
+            int salary = (int) (Math.random() * 100000);
+            //String name = sb.toString();
+            ///  String company = sb.toString();
+            String name = "Alex";
+            String company = "QWE";
+
+            Person peopl = new Person(name, age, salary, company);
+            personTask.add(peopl);
+            //System.out.println(peopl);
+        }
+
+
+
+
+
+    }
+
+    public TreeSet<Person> getPersonTask() {
+        return personTask;
+    }
+
+    public GeneratePerson(TreeSet<Person> personTask) {
+        this.personTask = personTask;
+    }
+}
+////-----------------------------------------------------------
