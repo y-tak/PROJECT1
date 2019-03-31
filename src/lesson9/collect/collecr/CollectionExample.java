@@ -95,41 +95,37 @@ public class CollectionExample {
 
         ClassLoader loader = CollectionExample.class.getClassLoader();
         File file = new File(loader.getResource("file.txt").getFile());
-        ///--читаем строки из файла
-        ////file.toPath()- путь
-        List<String> lines = Files.readAllLines(file.toPath());///для строк
-        List<String> words = new ArrayList<>();////для слов
 
-        for (String line : lines)
-        {  String[] wordsSplit = line.toLowerCase()/// к нижнему регистру
-                    .replaceAll("\\p{Punct}", " ")      ///знаки препинаняи на пробел
-                    .trim() //убрали проблемы с начала и конца
-                    .split("\\s"); //разбиваем на слова
-          
-        for (String s: wordsSplit)
-        {
-            if(s.length()==0) words.add(s.trim());           
-        }
+        // Читаем строки из файла
+        List<String> lines = Files.readAllLines(file.toPath());
 
-            for (String word:words)
-            {
-                System.out.println("word = " + word);    
+        List<String> words = new ArrayList<>();
+
+        for (String line : lines) {
+            String[] wordSplit = line.toLowerCase() // приведение к нижнему регистру
+                    .replaceAll("\\p{Punct}", " ") // знаки препинания на пробел
+                    .trim() // убираем пробелы
+                    .split("\\s");
+            for (String s : wordSplit) {
+                if (s.length() > 0) {
+                    words.add(s.trim());
+                }
             }
         }
-        
 
-
-
-
-
-
-
+        for (String word : words) {
+            System.out.println(word);
+        }
     }
 
+}
 
 
 
-    }
+
+
+
+
 
 
 //-----Comporable
