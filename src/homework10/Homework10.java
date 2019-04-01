@@ -25,7 +25,8 @@ public class Homework10 {
 
         for (String line : lines) {
             String[] wordSplit = line.toLowerCase() // приведение к нижнему регистру
-                    .replaceAll("\\p{Punct}", " ") // знаки препинания на пробел
+                    .replaceAll("\\p{Punct}", " ")
+                    .replaceAll("\\p{Digit}"," ")// знаки препинания на пробел
                     .trim() // убираем пробелы
                     .split("\\s");
             for (String s : wordSplit) {
@@ -47,6 +48,10 @@ public class Homework10 {
         gruppword(words);
         System.out.println("--задача3---");
         popularWord(words);
+        System.out.println("--задача4---");
+        gruppWowdNetArt(words);
+        System.out.println("--задача5---");
+        alfaWord(words);
     }
 
 
@@ -72,19 +77,20 @@ public class Homework10 {
       {
            dlina = w.length();
            maxDl=Integer.max(a,dlina);
-          a=maxDl;
+           a=maxDl;
           
        }
         System.out.println("maxDl = " + maxDl);
         HashMap<Integer, List<String>> stringHashMap = new HashMap<>();
-        for (int i=0;i<maxDl;i++)
+        for (int i=2;i<maxDl+1;i++)
         {
             List<String> stringList = new ArrayList<>();
             for (String w : words)
             {
                 if (i==w.length())
                 {
-                stringList.add(w);
+                    if (stringList.contains(w)) continue;
+                    else  stringList.add(w);
                 }
                 else continue;
             }
@@ -92,7 +98,7 @@ public class Homework10 {
         }
 
 ///----------вывод на экран-------------
-        for (int i=0;i<maxDl;i++) {
+        for (int i=2;i<maxDl+1;i++) {
 
             System.out.println("длина = "+i+"  лист" + stringHashMap.get(i));
 
@@ -132,13 +138,122 @@ public class Homework10 {
                 });
 
 
+
         stringHashMapP.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                .forEach(System.out::println);
+              .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+              .forEach(System.out::println);
 
 
     }
     
-    
+
+    public static void gruppWowdNetArt(List<String> words)
+    {
+        int kol = 0;
+        int dlina;
+        int a=1;
+        int maxDl=0;
+        ////макс длина
+        for (String w : words)
+        {   dlina = w.length();
+            maxDl=Integer.max(a,dlina);
+            a=maxDl;
+        }
+
+        List listArt=new ArrayList();
+        listArt.add("of");
+        listArt.add("the");
+        listArt.add("on");
+        listArt.add("a");
+        listArt.add("to");
+        listArt.add("and");
+        listArt.add("or");
+        listArt.add("that");
+        listArt.add("but");
+        listArt.add("till");
+        listArt.add("untill");
+        listArt.add("less");
+        listArt.add("after");
+        listArt.add("if");
+
+
+       // System.out.println("maxDl = " + maxDl);
+        HashMap<Integer, List<String>> stringHashMap = new HashMap<>();
+        for (int i=2;i<maxDl+1;i++)
+        {
+            List<String> stringList = new ArrayList<>();
+            for (String w : words)
+            {
+                if (listArt.contains(w)) continue;
+                else
+                if (i==w.length())
+                    if (stringList.contains(w)) continue;
+                    else stringList.add(w);
+                else continue;
+            }
+            stringHashMap.put(i, stringList);
+        }
+
+///----------вывод на экран-------------
+        for (int i=2;i<maxDl+1;i++) {
+
+            System.out.println("длина = "+i+"  лист" + stringHashMap.get(i));
+
+        }
+
+
+    }
+
+public static void alfaWord(List<String> words) {
+
+    ArrayList list = new ArrayList();///для букв
+
+
+    HashMap<String,Integer> stringIntegerHashMap = new HashMap<>();
+
+    int allChar = 0;
+
+    for (String s : words)
+        for (char gh : s.toCharArray())
+            allChar++;
+
+
+    System.out.println("всего букв = " + allChar);
+
+
+    int kol=0;
+    for (String s : words)
+    {
+        for (char gh : s.toCharArray())
+        {
+            String key = String.valueOf(gh);
+            if (list.contains(gh))
+            {
+                kol = stringIntegerHashMap.get(key);///получили значение
+                kol++;
+            }
+            else
+                {
+                list.add(gh);
+                kol = 1;
+            }
+            stringIntegerHashMap.put(key, kol);
+        }
+    }
+
+    float proc=0;
+    float proc1=0;
+    for (Map.Entry entry : stringIntegerHashMap.entrySet())
+    {
+        proc=(int)entry.getValue()*100/allChar;
+
+        proc1= proc1+ proc;
+        System.out.println("буква " + entry.getKey() + "кол "+ entry.getValue()+ " --> " +proc+"%");
+
+    }
+    System.out.println("% " + proc1);
+}
+
+///-------------------послдений-------------
 }
 
