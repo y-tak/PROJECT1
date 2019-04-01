@@ -137,11 +137,14 @@ public class Homework10 {
                     }
                 });
 
+       for (int i=list.size()-1;i>list.size()-11;i--)
+        {
+            System.out.println("лист по порядку " + list.get(i));
+        }
 
-
-        stringHashMapP.entrySet().stream()
-              .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-              .forEach(System.out::println);
+        //stringHashMapP.entrySet().stream()
+         //     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+         //     .forEach(System.out::println);
 
 
     }
