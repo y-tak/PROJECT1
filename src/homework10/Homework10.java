@@ -7,10 +7,7 @@ package homework10;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 
 public class Homework10 {
@@ -44,11 +41,12 @@ public class Homework10 {
 
         ///------------создадим коллекция----------
 
-
+        System.out.println("--задача1---");
         System.out.println("Сосчитать частоту встречаемости слов  " + sourchWord(words, "peace"));
-
+        System.out.println("--задача2---");
         gruppword(words);
-
+        System.out.println("--задача3---");
+        popularWord(words);
     }
 
 
@@ -63,33 +61,84 @@ public class Homework10 {
       }
         return kol;
     }
+    ///----------------------------------------------
 
-    public static void gruppword( List<String> words)
-    {
-        int kol=0;
+    public static void gruppword( List<String> words) {
+        int kol = 0;
         int dlina;
-        ArrayList<Integer> arrayList=new ArrayList<>();
-        for (String w : words)
-            {
-           dlina=w.length();
-           if (arrayList.contains(dlina)) continue;
-           else
-           arrayList.add(dlina);
-
-        }
-        List<String> stringList=new ArrayList<>();
-        HashMap<Integer,List<String>> stringHashMap=new HashMap<>();
-
-        for (String w : words)
+        int a=1;
+        int maxDl=0;
+      for (String w : words)
+      {
+           dlina = w.length();
+           maxDl=Integer.max(a,dlina);
+          a=maxDl;
+          
+       }
+        System.out.println("maxDl = " + maxDl);
+        HashMap<Integer, List<String>> stringHashMap = new HashMap<>();
+        for (int i=0;i<maxDl;i++)
         {
-            dlina=w.length();
-            stringList.add(w);
-            stringHashMap.put(dlina,stringList);
+            List<String> stringList = new ArrayList<>();
+            for (String w : words)
+            {
+                if (i==w.length())
+                {
+                stringList.add(w);
+                }
+                else continue;
+            }
+            stringHashMap.put(i, stringList);
         }
 
+///----------вывод на экран-------------
+        for (int i=0;i<maxDl;i++) {
+
+            System.out.println("длина = "+i+"  лист" + stringHashMap.get(i));
+
+        }
+    }
+    ///------------------конец метода------------------
+
+    public static void popularWord(List<String> words)
+    {
+        List<String> stringList = new ArrayList<>();
+        HashMap<String, Integer> stringHashMapP = new HashMap<>();
+        for (String w:words)
+        {
+            if (stringList.contains(w)) continue;
+            else
+            stringList.add(w);
+        }
+
+        for (String f:stringList)
+        {
+            int kol=0;
+            for (String w:words)
+            {
+                if (f.equals(w)) kol++;
+            }
+            stringHashMapP.put(f,kol);
+        }
+
+        List list = new ArrayList(stringHashMapP.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
+                {
+                    @Override
+                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2)
+                    {
+                        return o1.getValue()-o2.getValue();
+                    }
+                });
+
+
+        stringHashMapP.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEach(System.out::println);
 
 
     }
-
+    
+    
 }
 
