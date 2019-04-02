@@ -6,166 +6,175 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-public class IOExample {
+public class IOExample {// IO | NIO
+
     public static void main(String[] args) {
+//        File file = new File("file.txt");
+        // IO API
+//        работают с байтами
+//        InputStream
+//        OutputStream
 
-//        File file=new File("file.txt");
-//       try {
-//           file.createNewFile();
-//       }catch (IOException e){};
-//
+//        работают с char
+//        Reader
+//        Writer
 
-        try {
+        /*try {
             writeToFile("src/file.txt", true, Charset.forName("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ;
-
-        File file = new File("src/ttt.txt");
         try {
-            file.createNewFile();
-        } catch (IOException e) {
-        }
-        ;
-
-        try {
-            readByteArray(file, Charset.forName("UTF-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        ;
-
-        try
-        {
-            readFromFile(file);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        File[] files=new File[2];
-        files[0]=new File("src/ttt.txt");
-        files[1]=new File("src/file.txt");
-
-        try {
-            readFromSeveralFiles(files,Charset.forName("UTF-8"));
+            readByte(new File("src/file.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+*/
+//        try {
+//            readByteArray(new File("src/file.txt"), Charset.forName("UTF-8"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        ;
-        ///IO API | NIO API
+        File[] files = {
+                new File("src/file.txt"),
+                new File("src/file1.txt")
+        };
 
-        //IO API
-        ///--работают с байтами
-        //InputStream  //когда получаем данные в программу
-        // OutoutStream  //когда передаем данные из программы
-
-
-        //работают с char
-
-        // Reader
-        //Writer
+        try {
+            readFromSeveralFiles(files, Charset.forName("UTF-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    ////-----------------------------------------------------------------------
-    public static void writeToFile(String fileName, boolean append, Charset charset)
-            throws IOException //имя..перезаписывать//дозаписывать (true).кодировка
-    {
-        //FileOutPutStream
-
-        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName, append)) {
+    ///----------------------------------------------------------------------------
+    public static void writeToFile(String fileName,
+                                   boolean append, Charset charset)
+            throws IOException {
+//        FileOutputStream - запись в файл
+        try (FileOutputStream outputStream =
+                     new FileOutputStream(fileName, append))
+        {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 5; i++)
-                sb.append("line").append(i).append("\n");
-
+            for (int i = 0; i < 6; i++){
+                sb.append("line ").append(i).append("\n");
+            }
 
             byte[] bytes = sb.toString().getBytes(charset);
-            fileOutputStream.write(bytes);
-
-
+            outputStream.write(bytes);
         }
-
     }
+///------------------------------------------------------------------------
+    public static long readByte(File file) throws IOException{
 
+//        FileInputStream
+        long sum = 0;
+        try (FileInputStream inputStream = new FileInputStream(file)){
+            System.out.println(inputStream.available());
 
-//    ///-------------------------------------------------------------------
-    public static long readFromFile(File file) throws IOException
-    {
-        //FileInputString
-        long sum = 0;///количество считанных байтов
-        try (FileInputStream inputStream = new FileInputStream(file))
-        {
-            System.out.println("inputStream.available() = " + inputStream.available());
-            while (inputStream.available() > 0)
-            {
+            while (inputStream.available() > 0){
                 int data = inputStream.read();
                 sum += data;
                 System.out.println((char) data);
             }
             return sum;
-
         }
-
     }
+////----------------------------------------------------------------------------------
+    public static void readByteArray(File file, Charset charset) throws IOException{
+//        FileInputStream
+//        ByteArrayOutputStream
+
+        try (
+                FileInputStream fileInputStream = new FileInputStream(file);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); )
+        {
 
 
-    public static void readByteArray(File file, Charset charset) throws IOException {
-        try (FileInputStream fileInputStream = new FileInputStream(file);
-             ByteArrayOutputStream byteArrayInputStream = new ByteArrayOutputStream()) {
             byte[] buf = new byte[1024];
+
             int len;
+
             while ((len = fileInputStream.read(buf)) > 0) {
-                System.out.println("Arrays.toString() = " + Arrays.toString(buf));
-                byteArrayInputStream.write(buf, 0, len);
+                System.out.println(Arrays.toString(buf));
+                byteArrayOutputStream.write(buf, 0, len);
             }
-            System.out.println("Arrays.toString(byteArrayInputStream) = " + Arrays.toString(byteArrayInputStream.toByteArray()));
-            System.out.println(new String( byteArrayInputStream.toByteArray(),charset));
+
+            System.out.println(Arrays.toString(byteArrayOutputStream.toByteArray()));
+            System.out.println(new String(byteArrayOutputStream.toByteArray(), charset));
         }
 
     }
-
-    public void writeWithBuffer(File file) throws IOException
-    {
+////-------------------------------------------------------------------------------
+    public void writeWithBuffer(File file) throws IOException {
         try (FileOutputStream fileOutputStream = new FileOutputStream(file);
-             BufferedOutputStream outputStream = new BufferedOutputStream(fileOutputStream)
-        )
+             BufferedOutputStream outputStream = new BufferedOutputStream(fileOutputStream))
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 5; i++)
-                sb.append("line").append(i).append("\n");
+            for (int i = 0; i < 6; i++){
+                sb.append("line ").append(i).append("\n");
+            }
 
             byte[] buffer = sb.toString().getBytes();
-            outputStream.write(buffer,0,buffer.length);
+            outputStream.write(buffer, 0, buffer.length);
         }
     }
-////последователььное чтение
-    public static void readFromSeveralFiles(File[] files,Charset charset)throws IOException
-    {
-        try (FileInputStream inputStrem1 =new FileInputStream(files[0]);
-             FileInputStream inputStrem2 =new FileInputStream(files[1]) ;
+/////--------------------------------------------------------------------------------------
+    public static void readFromSeveralFiles(File[] files, Charset charset) throws IOException{
+        try (FileInputStream inputStream1 = new FileInputStream(files[0]);
+             FileInputStream inputStream2 = new FileInputStream(files[1]);
              ByteArrayOutputStream bout = new ByteArrayOutputStream())
         {
-            SequenceInputStream sequenceInputStream= new SequenceInputStream(inputStrem1,inputStrem2);
-            byte [] buf=new byte[1024];
+
+            /*InputStream stream1 = new FileInputStream("file1.txt");
+            InputStream stream2 = new FileInputStream("file2.txt");
+            InputStream stream3 = new FileInputStream("file3.txt");
+            InputStream stream4 = new FileInputStream("file4.txt");
+            Vector<InputStream> sequence = new Vector<>();
+            sequence.add(stream1);
+            sequence.add(stream2);
+            sequence.add(stream3);
+            sequence.add(stream4);
+            SequenceInputStream sequenceStream = new SequenceInputStream(sequence.elements());*/
+
+            SequenceInputStream sequenceInputStream =
+                    new SequenceInputStream(inputStream1, inputStream2);
+
+            byte[] buf  = new byte[1024];
             int len;
-            while ((len=sequenceInputStream.read(buf))>0)
-            {bout.write(buf,0,len);}
-            System.out.println( new String(bout.toByteArray(),charset));
+
+            while ((len = sequenceInputStream.read(buf)) > 0) {
+                bout.write(buf, 0, len);
+            }
+
+            System.out.println(new String(bout.toByteArray(), charset));
+
         }
     }
+/////-------------------------------------------------------------------------------
+    public static String readChar(InputStream in, Charset charset) throws IOException {
+        InputStreamReader reader = new InputStreamReader(in);
 
-    
-    public static String readChar (InputStream in, Charset charset) throws IOException
-    {
+        StringBuilder sb = new StringBuilder();
 
-        String o = null;
-        return o;
+        char[] buf = new char[20];
+        int len;
+        while ((len = reader.read(buf)) > 0) {
+            sb.append(buf, 0, len);
+        }
+
+        return sb.toString();
+
     }
+////---------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 }
 
