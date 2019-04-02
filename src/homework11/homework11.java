@@ -50,12 +50,12 @@ public class homework11 {
 ///---------------------шифрование
        ///a) кодировака слова XOR
         byte[] bytePas=encodeParol("program", "pas");
-        System.out.println("program - это слово"+ "pas -это  ключ "+ "==> " + bytePas.toString());
+        System.out.println("program - это СЛОВО "+ "pas -это  КЛЮЧ "+ "==> " + bytePas.toString());
         String decod= decode(bytePas, "pas");
-        System.out.println( bytePas.toString()+" с ключom  pas ==>"+decod);
+        System.out.println( bytePas.toString()+" с КЛЮЧОМ  pas  получили СЛОВО==>"+decod);
 
     //////////b)
-        System.out.println("зашифруем весь файл и поместим в другой.. ");
+        System.out.println("зашифруем весь файл введенным КЛЮЧОМ и поместим в другой.. ");
         File file4;
         file4 = new File("src/file4.txt");//закодированный файл
         System.out.println(" ключ к паролю ");
@@ -75,9 +75,11 @@ public class homework11 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//////--------------------------------------------------------------------------------
+        System.out.println(" --------------ЗАДАЧА 4---------------------------");
+//////-------------------Задача 5 посчитать в файле запятые-------------------------------------------------------------
+        File file6 = new File("src/file10.txt");///раскодированный файл
         try {
-            searchBird(file1,Charset.forName("UTF-8"));
+            searchBird(file6);
         } catch (IOException e) {
 
         }
@@ -167,7 +169,7 @@ public class homework11 {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             int len;
 
-            ///-------------------получили массив байтов-----------------------
+
             byte[] buf = new byte[1024];
             while ((len = fileInputStream.read(buf)) > 0) {
                 byteArrayOutputStream.write(buf, 0, len);
@@ -194,7 +196,7 @@ public class homework11 {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             int len;
 
-            ///-------------------получили массив байтов-----------------------
+
             byte[] buf = new byte[1024];
             while ((len = fileInputStream.read(buf)) > 0) {
                 byteArrayOutputStream.write(buf, 0, len);
@@ -240,7 +242,7 @@ public class homework11 {
         return new String(res);
     }
 ///-------------------------------------------поиск запятой----------------
-    public static void searchBird(File file,Charset charset) throws IOException
+    public static void searchBird(File file) throws IOException
     {
         ////не с помощю метода  List<String> lines = Files.readAllLines(file.toPath());-
         ////это NIO
@@ -252,11 +254,17 @@ public class homework11 {
 
         char[] buf = new char[20];
         int len;
+        int kol=0;
         while ((len = reader.read(buf)) > 0) {
+            for (int i=0;i<buf.length;i++)
+            {
+                if (buf[i]==',') kol++;
+
+            }
             sb.append(buf, 0, len);
         }
-
-        System.out.println("sb.toString() = " + sb.toString());
+        System.out.println(" Количество запятых в файле " +kol);
+      //  System.out.println("sb.toString() = " + sb.toString());
 
     }
 
