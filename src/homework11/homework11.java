@@ -2,8 +2,6 @@ package homework11;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class homework11 {
@@ -25,23 +23,28 @@ public class homework11 {
         File file1 = new File("src/file.txt");
 
         try {
-            readWriteFiles(file1, file2, true, Charset.forName("UTF-8"));
+            readWriteFiles(file1, file2, false, Charset.forName("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         System.out.println(" --------------ЗАДАЧА 2---------------------------");
         /////Задача 2
-        //Разбить/склеить файл. (имена файлов и размер куска задаются с клавиатуры)
+        //Разбить файл. (имена файлов и размер куска задаются с клавиатуры)
 
         File file3 = new File("src/file1.txt");
         System.out.println("введите размер в байтах ");
         String size = in.nextLine();
         try {
             seperateFile(file1, file3, Integer.parseInt(size), false, Charset.forName("UTF-8"));
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
+        System.out.println(" --------------ЗАДАЧА 3---------------------------");
+        /////Задача 3
+      ///  a) Зашифровать/ дешифровать файл паролем (XOR) (посмотреть в интернете)
+       /// b) Зашифровать/ дешифровать файл другим файлом
 
 
     }
@@ -52,34 +55,28 @@ public class homework11 {
 
         FileOutputStream fileOutputStream;
         ByteArrayOutputStream byteArrayOutputStream;
-        int kol;
+
         long sum = 0;
         try (FileInputStream fileInputStream = new FileInputStream(file1))
         {
             fileOutputStream = new FileOutputStream(file2, append);
-
             byteArrayOutputStream = new ByteArrayOutputStream();
-
             int len;
-            StringBuilder sb = new StringBuilder();
+            ///--------получить массив байтов---------------
             byte[] buf = new byte[1024];
-            kol = 0;
-
             while ((len = fileInputStream.read(buf)) > 0) {
-                for (int i = 0; i < buf.toString().length(); i++) {
-                     kol++;
-                    //  int data = fileInputStream.read();
-                     sum = sum+(byte)buf[i];
-                }
-
-                byteArrayOutputStream.write(buf, 0, len);
-
-
-            }
+                 byteArrayOutputStream.write(buf, 0, len);
+           }
         }
+            ///-------------Скопировать---------------------
         fileOutputStream.write(byteArrayOutputStream.toByteArray());
+        for (int i=0;i<byteArrayOutputStream.toByteArray().length;i++)
+        {
+            sum=sum+byteArrayOutputStream.toByteArray()[i];
+        }
+
         //            ///----------вывод
-        System.out.println("количество скопированных байт " + kol+" cсумма "+sum);///+" сумма "+ sum);
+        System.out.println("количество скопированных байт "+sum);///+" сумма "+ sum);
         ////////для проверки----массив байт--
         // System.out.println(Arrays.toString(byteArrayOutputStream.toByteArray()));
         //////вывод как в файле--
@@ -94,51 +91,41 @@ public class homework11 {
         String[] in;
 
         int kol;
-
+        long sum = 0;
 
         try (FileInputStream fileInputStream = new FileInputStream(file1)) {
             fileOutputStream = new FileOutputStream(file2, append);
-            InputStreamReader reader = new InputStreamReader(fileInputStream);
-
+            byteArrayOutputStream = new ByteArrayOutputStream();
             int len;
 
-            int sum=0;
-            StringBuilder sb = new StringBuilder();
-
-            //char[] buf = new char[20000];
+            ///-------------------получили массив байтов-----------------------
             byte[] buf = new byte[1024];
-            byte[] buf1 = new byte[1024];
-//            while ((len = fileInputStream.read(buf)) > 0)  {
-//                kolByte = len;
-//                for (int j=0;j<buf.length;j++)
-//                {
-//                    sum = sum + buf[j];
-//                    if (sum <= size) ///sb.append("" + buf[j], 0, len);
-//                        fileOutputStream.write((char)buf[j]);
-//                    else return;
-//
-//                }
-//            }
-
-            while ((len = fileInputStream.read(buf)) > 0)
-            {
-                for (int i = 0; i < buf.toString().length(); i++)
-                {
-                                     //  int data = fileInputStream.read();
-                    sum = sum+(byte)buf[i];
-                    if (sum<=size) buf1[i]=buf[i];
-                }
-                fileOutputStream.write(buf1, 0, len);
-
-
-
+            while ((len = fileInputStream.read(buf)) > 0) {
+                byteArrayOutputStream.write(buf, 0, len);
             }
+
+            ///---------------перебор по байтам
+            StringBuilder spp = new StringBuilder();
+            for (int i = 0; i < byteArrayOutputStream.toByteArray().length; i++)
+            {
+                sum = sum + byteArrayOutputStream.toByteArray()[i];
+                if (sum <= size) spp.append((char) byteArrayOutputStream.toByteArray()[i]);
+            }
+
+            ///---------------записали в новый файл.. конкретного размера-----------------------
+            byte[] buffer = spp.toString().getBytes();
+            fileOutputStream.write(buffer, 0, buffer.length);
+              }
+        finally {
+            System.out.println("файл file1.txt записан");
+        }
 
         }
 
-///----------------------------------------------------------------------------------
+
+        ///----------------------------------------------------------------------------------
 
 
-    }
+
 
 }
