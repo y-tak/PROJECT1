@@ -261,7 +261,7 @@ public class homework11 {
                 if (buf[i]==',') kol++;
 
             }
-            sb.append(buf, 0, len);
+           // sb.append(buf, 0, len);
         }
         System.out.println(" Количество запятых в файле " +kol);
       //  System.out.println("sb.toString() = " + sb.toString());
