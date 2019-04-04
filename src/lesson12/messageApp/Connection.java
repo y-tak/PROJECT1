@@ -5,31 +5,26 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class Connection
-{
-    private Socket socket;
-
-    private ObjectInputStream inobj;
-    private ObjectOutputStream objectOutputStream;
 
 
-    public Connection(Socket socket) throws IOException
-    {
+    public class Connection {
+        private Socket socket;
+        private ObjectOutputStream out;
+        private ObjectInputStream in;
 
-        this.inobj= new ObjectInputStream(socket.getInputStream());
-        this.objectOutputStream= new ObjectOutputStream (socket.getOutputStream());
-        this.socket = socket;
+        public Connection(Socket socket) throws IOException {
+            this.socket = socket;
+            out = new ObjectOutputStream(this.socket.getOutputStream());
+            in = new ObjectInputStream(this.socket.getInputStream());
+        }
+
+        public void sendMessage(Message message) throws IOException {
+            out.writeObject(message);
+            out.flush();
+        }
+
+        public Message readMessage() throws IOException, ClassNotFoundException {
+            return (Message) in.readObject();
+        }
     }
 
-    public  Message readMessage() throws IOException, ClassNotFoundException {
-Message message=(Message) inobj.readObject();
-return message;
-}
-
-    public  void writeMessage(Message message) throws IOException {
-        objectOutputStream.writeObject(message);
-        objectOutputStream.flush();
-
-    }
-
-}

@@ -31,4 +31,5 @@ public class Message implements Serializable {
                 ", messageText='" + messageText + '\'' +
                 '}';
     }
+
 }

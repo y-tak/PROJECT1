@@ -10,7 +10,7 @@ public class LaunchStatExt implements Externalizable {
     private int launchCount;
     private Date lastLaunch;
     private String lastUser;
-    private static final long seriakVersionUID = 0L;
+    private static final long serialVersionUID = 0L;
     private static final int VERSION = 0;
 
 
