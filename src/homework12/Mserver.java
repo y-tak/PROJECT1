@@ -5,14 +5,15 @@ import java.io.IOException;
 
 import java.net.*;
 import java.util.Date;
+import java.util.List;
 
 
 public class Mserver {
 
     private int port;
     Connection connection;
-
-
+    //List<String> listUser;  ///не хочет добавлять и работать..
+    String stroka="";
     public Mserver() {
     }
 
@@ -27,15 +28,15 @@ public class Mserver {
         Date newDate=date1;///date1messageIn.getLastLaunch();
         Date oldDate=date2;//messageOut.getLastLaunch();
 
-        int diffInDays = (int)( (newDate.getTime() - oldDate.getTime())
-                / (1000 * 60 * 60 * 24) );
+        int diffInDays = (int)( (newDate.getTime() - oldDate.getTime()));
+               // / (1000 * 60 * 60 * 24) );
 
-        return "время отклика "+diffInDays;
+        return "время сообщения:"+date2+ " время сервера: "+date1+" время отклика: "+diffInDays;
     }
     //----------------------------
-    public String list_user(Mes m)    {
-
-        return "список пользователей "+m.getSender();
+    public String list_user(Mes m)
+    {
+        return "список пользователей: "+stroka;
     }
 
 
@@ -56,6 +57,8 @@ public class Mserver {
                 Socket socket = serverSocket.accept();
                 connection = new Connection(socket);
                 Mes mm=connection.readMessage();
+                stroka=stroka+";"+mm.getSender();
+             ///  listUser.add(mm.getSender());
                 printMessage(mm);
                 String mesTextOut=someVoidForMessage(mm);
                 Mes mes=new Mes("server", mesTextOut);
@@ -72,7 +75,7 @@ public class Mserver {
 
 
     private void printMessage(Mes message){
-
+     //   listUser.add(message.getSender());
         System.out.println("получено сообщение: " +
                 message.getMessageText() + " от " + message.getSender());
     }

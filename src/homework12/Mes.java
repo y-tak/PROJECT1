@@ -13,10 +13,6 @@ public class Mes implements Serializable {
     private static final int VERSION = 0;
     private  String[] users;
 
-
-
-
-
     public Mes(String sender, String messageText) {
         this.sender = sender;
         this.messageText = messageText;
@@ -30,26 +26,10 @@ public class Mes implements Serializable {
         this.sender = sender;
     }
 
-    public Mes(String sender, String messageText, Date lastLaunch) {
-        this.sender = sender;
-        this.messageText = messageText;
-        this.lastLaunch = lastLaunch;
-
-    }
-
     public boolean isFirstLaunch() {
         return  lastLaunch == null;
     }
 
-
-
-
-///--------------------------------------------
-    public void update() {
-        lastLaunch = new Date();
-
-
-    }
 
     public String getSender() {
         return sender;
