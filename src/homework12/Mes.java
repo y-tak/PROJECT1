@@ -21,11 +21,6 @@ public class Mes implements Serializable {
         this.sender = sender;
         this.messageText = messageText;
         this.lastLaunch = new Date();
-//        if (messageText.equals("list_user")) list_user();
-//        else if (messageText.equals("server_time")) server_time(this);
-//        else if (messageText.equals("ping_time")) ping_time(new Date(),this.getLastLaunch());
-
-
     }
 
 
