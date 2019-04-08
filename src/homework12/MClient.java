@@ -48,7 +48,6 @@ public class MClient {
         private void buildAndSend(String name, String messageText) throws IOException {
         connection = new Connection(new Socket(server, port));
         Mes message = new Mes(name, messageText);
-        message.update();
         connection.sendMessage(message);
     }
 
