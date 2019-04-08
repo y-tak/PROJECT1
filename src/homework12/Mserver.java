@@ -11,33 +11,39 @@ public class Mserver {
 
     private int port;
     Connection connection;
-    private  StringBuilder users;
+
 
     public Mserver() {
     }
 
+    ///------------------------------------------------------------------
+    public String server_time(Mes message)
+    {
+       return "сервер время = " + new Date();
+
+    }
+    ///--------------------------------------------------------------------
+    public String ping_time(Date date1,Date date2)   {
+        Date newDate=date1;///date1messageIn.getLastLaunch();
+        Date oldDate=date2;//messageOut.getLastLaunch();
+
+        int diffInDays = (int)( (newDate.getTime() - oldDate.getTime())
+                / (1000 * 60 * 60 * 24) );
+
+        return "время отклика "+diffInDays;
+    }
+    //----------------------------
+    public String list_user(Mes m)    {
+
+        return "список пользователей "+m.getSender();
+    }
+
+
+    ///------------------------------------------------------------
+
     public Mserver(int port)
     {
         this.port = port;
-    }
-///------------------------------------------------------------------
-public void server_time(Mes message)
-{
-    System.out.println("время сообщения= " + message.getLastLaunch());
-}
-///--------------------------------------------------------------------
-public void ping_time(Mes messageOut,Mes messageIn)   {
-        Date newDate=messageIn.getLastLaunch();
-    Date oldDate=messageOut.getLastLaunch();
-    int diffInDays = (int)( (newDate.getTime() - oldDate.getTime())
-               / (1000 * 60 * 60 * 24) );
-       System.out.println(""+diffInDays);
-    }
-    //----------------------------
-    public void list_user(Mes message)    {
-        users.append(message.getSender());
-        System.out.println("users = " + users);
-
     }
 //--------------------------------------------
     public void start() throws IOException {
@@ -49,16 +55,12 @@ public void ping_time(Mes messageOut,Mes messageIn)   {
             {
                 Socket socket = serverSocket.accept();
                 connection = new Connection(socket);
-                printMessage(connection.readMessage());
-                Mes mes=new Mes("server", "сообщение получено");
+                Mes mm=connection.readMessage();
+                printMessage(mm);
+                String mesTextOut=someVoidForMessage(mm);
+                Mes mes=new Mes("server", mesTextOut);
                 connection.sendMessage(mes);
-              //  mes.update();
-              //  users.append(connection.readMessage().getSender());
 
-                ///-------------
-            //  server_time(mes);
-             //  ping_time(connection.readMessage(),mes);
-              // list_user(connection.readMessage());
 ///------------------
             }
         } catch (ClassNotFoundException e) {
@@ -70,10 +72,24 @@ public void ping_time(Mes messageOut,Mes messageIn)   {
 
 
     private void printMessage(Mes message){
+
         System.out.println("получено сообщение: " +
                 message.getMessageText() + " от " + message.getSender());
     }
+    ///---------------------------------------------------------------------------------
+    private String someVoidForMessage(Mes message){
 
+               String mesText=message.getMessageText();
+               String mesTextOut="";
+
+                if ( mesText.equals("list_user"))  {mesTextOut=list_user(message);}
+                else if ( mesText.equals("server_time")) { mesTextOut=server_time(message);}
+               else if ( mesText.equals("ping")) {mesTextOut=ping_time(new Date(),message.getLastLaunch());}
+               else  { mesTextOut="сообщение получено";}
+               return  mesTextOut;
+
+
+    }
 
     ///-----------------------------------------
     public static void main(String[] args) {

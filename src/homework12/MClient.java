@@ -15,21 +15,25 @@ public class MClient {
         private Connection connection;
         private Scanner scanner;
 
-    public MClient(String server, int port) {
+    public MClient(String server, int port)
+    {
         this.server = server;
         this.port = port;
         this.scanner = new Scanner(System.in);
     }
 
-        public void start(){
+        public void start()
+        {
         System.out.println("Введите имя");
-
-
         String name = scanner.nextLine();
+
+
         String messageText;
         while (true){
-            System.out.println("Введите сообщение");
+            System.out.println("Введите команду");
             messageText = scanner.nextLine();
+            messageText=messageText.substring(1);
+
             try {
                 buildAndSend(name, messageText);
                 printMessage();
@@ -45,7 +49,6 @@ public class MClient {
         connection = new Connection(new Socket(server, port));
         Mes message = new Mes(name, messageText);
         message.update();
-
         connection.sendMessage(message);
     }
 

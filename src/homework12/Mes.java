@@ -4,34 +4,38 @@ import java.io.*;
 import java.util.Date;
 import java.util.List;
 
-public class Mes implements Externalizable {
+public class Mes implements Serializable {
 
     private String sender;
     private String messageText;
-  //  private int launchCount;
     private Date lastLaunch;
     private static final long serialVersionUID = 0L;
     private static final int VERSION = 0;
+    private  String[] users;
+
+
+
 
 
     public Mes(String sender, String messageText) {
         this.sender = sender;
         this.messageText = messageText;
+        this.lastLaunch = new Date();
+//        if (messageText.equals("list_user")) list_user();
+//        else if (messageText.equals("server_time")) server_time(this);
+//        else if (messageText.equals("ping_time")) ping_time(new Date(),this.getLastLaunch());
 
 
     }
-    public Mes(String sender, String messageText,String lastUser) {
+
+
+    public Mes()  { }
+
+    public Mes(String sender) {
         this.sender = sender;
-        this.messageText = messageText;
-
-
     }
 
-    public Mes() {
-    }
-
-
-    public Mes(String sender, String messageText, Date lastLaunch, String lastUser) {
+    public Mes(String sender, String messageText, Date lastLaunch) {
         this.sender = sender;
         this.messageText = messageText;
         this.lastLaunch = lastLaunch;
@@ -51,6 +55,7 @@ public class Mes implements Externalizable {
 
 
     }
+
     public String getSender() {
         return sender;
     }
@@ -63,28 +68,31 @@ public class Mes implements Externalizable {
         return messageText;
     }
 
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException
-    {
-        out.writeInt(VERSION);
-        out.writeObject(lastLaunch);
-        out.writeObject(sender);
-        out.writeObject(messageText);
-    }
+//    @Override
+//    public void writeExternal(ObjectOutput out) throws IOException
+//    {
+//        out.writeInt(VERSION);
+//        out.writeObject(lastLaunch);
+//        out.writeObject(sender);
+//        out.writeObject(messageText);
+//    }
+//
+//    @Override
+//    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+//        int version = in.readInt();
+//        {
+//            if (version > VERSION) {
+//                throw new IOException("версии не совпадают");
+//            }
+//            lastLaunch = (Date) in.readObject();//
+//        sender = (String) in.readObject();
+//        messageText = (String) in.readObject();
+//    }
+//
+//
+//        }
+//    }
 
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        int version = in.readInt();
-        {
-            if (version > VERSION) {
-                throw new IOException("версии не совпадают");
-            }
-            lastLaunch = (Date) in.readObject();
-
-
-
-        }
-    }
 
     @Override
     public String toString() {
@@ -94,4 +102,6 @@ public class Mes implements Externalizable {
                 ", lastLaunch=" + lastLaunch +
                                 '}';
     }
+
+
 }
