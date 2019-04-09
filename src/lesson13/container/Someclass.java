@@ -1,7 +1,15 @@
 package lesson13.container;
 
+import lesson13.annotation.Exclude;
+
 public class Someclass {
+
+
     SomeClassConfig config;
+
+    public Someclass()
+    {
+    }
 
     public SomeClassConfig getConfig() {
         return config;
@@ -9,5 +17,13 @@ public class Someclass {
 
     public void setConfig(SomeClassConfig config) {
         this.config = config;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Someclass{" +
+                "config=" + config +
+                '}';
     }
 }

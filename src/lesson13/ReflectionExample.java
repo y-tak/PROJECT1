@@ -1,6 +1,7 @@
 package lesson13;
 
 import lesson13.annotation.AnnotetionExample;
+import lesson13.annotation.Exclude;
 
 import java.lang.reflect.*;
 import java.util.Arrays;
@@ -79,65 +80,41 @@ public class ReflectionExample {
         ///вывести информацию по полям...
 
       //  toString(someClass1);
-        System.out.println("TOSTRING");
+        System.out.println("-----------TOSTRING-------------");
         String str="factory";
-        toString(str);
 
-    }
+        SomeClass someClass2 = someClassConstructor.newInstance("ttt", 5);
+        toString(someClass2);
 
-
-    public static void toString(Object obj) throws NoSuchFieldException {
-
-
-        Class<?> objClass = obj.getClass();
-
-        ///доступ к полям класса
-        Field[] fields = objClass.getFields();
-        //    System.out.println(" " + Arrays.toString(fields));
-
-        Field[] declared = objClass.getDeclaredFields();
-        //  System.out.println(Arrays.toString(declared));
+        // написать статический toString(obj),
+        // который возвращает информацию о переданном объекте
 
 
-        Method[] methods = objClass.getMethods();
-        //   System.out.println(Arrays.toString(methods));
-
-        Method[] declaredMetod = objClass.getDeclaredMethods();
-        //    System.out.println(Arrays.toString(declaredMetod));
-
-        boolean isPrivate = Modifier.isFinal(objClass.getModifiers());//получаем модификатор доступа
-        boolean isFinal = Modifier.isFinal(objClass.getModifiers());// и проверяем модификаторы
-        StringBuilder s = new StringBuilder();
-        // for ( Field f:declared)
-        // {
-
-        AnnotetionExample example = new AnnotetionExample();
-        Field[] fields1 = example.getClass().getDeclaredFields();
-        for (Field ff:fields1)
-        {
-           // ff.isAnnotationPresent();///если поле включено тогда выводить
-
-        }
-
-
-
-
-         for ( Field f:declared)
-        {
-            s.append(objClass.getDeclaredField(f.getName()));
-                }
-
-       System.out.println(Arrays.toString(declared));
-
-
-
-        System.out.println("SomeClass{" +
-                "name='" +s.toString() + '\'' +
-                ", vertion=" + //objClass.vertion +
-                '}');
 
 
     }
+///---------------------------Домашка---------------------------------------------------
+   public static void toString(SomeClass someClass) throws NoSuchFieldException, IllegalAccessException {
+
+       Class<SomeClass> someCls = SomeClass.class;
+       ///доступ к полям класса
+       Field[] declared = someCls.getDeclaredFields();
+       StringBuilder sb = new StringBuilder();
+       for (Field f:declared )
+       {
+           sb.append(f.getName());
+               sb.append(" = ");
+               f.setAccessible(true);
+               sb.append(f.get(someClass));
+               sb.append(' ');
+
+
+       }
+       System.out.println("SomeClass " + sb);
+   }
+
+
+///----------------------------------------------------------------------------------
 }
 
 class PaternClass{
@@ -149,13 +126,18 @@ class PaternClass{
 }
 
 
-
+///------------------------------------------------------------------------
 class SomeClass extends PaternClass
 {
+
+    @Exclude(version = 5)
     private String name;
+    @Exclude(version = 4)
     public int vertion;
 
     public SomeClass(String name, int vertion) {
+
+
         this.name = name;
         this.vertion = vertion;
     }
@@ -164,6 +146,7 @@ class SomeClass extends PaternClass
     }
 
     public SomeClass(String name) {
+
         this.name = name;
     }
 
