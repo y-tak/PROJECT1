@@ -5,7 +5,7 @@ import lesson13.annotation.Exclude;
 public class Someclass {
 
 
-    SomeClassConfig config;
+    private SomeClassConfig config;
 
     public Someclass()
     {

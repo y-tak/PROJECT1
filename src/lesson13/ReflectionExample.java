@@ -3,8 +3,14 @@ package lesson13;
 import lesson13.annotation.AnnotetionExample;
 import lesson13.annotation.Exclude;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.stream.IntStream;
 
 public class ReflectionExample {
     ///Рефлексия в Java
@@ -81,11 +87,8 @@ public class ReflectionExample {
 
       //  toString(someClass1);
         System.out.println("-----------TOSTRING-------------");
-        String str="factory";
-
         SomeClass someClass2 = someClassConstructor.newInstance("ttt", 5);
         toString(someClass2);
-
         // написать статический toString(obj),
         // который возвращает информацию о переданном объекте
 
@@ -102,6 +105,15 @@ public class ReflectionExample {
        StringBuilder sb = new StringBuilder();
        for (Field f:declared )
        {
+           Field field = someCls.getDeclaredField(f.getName());
+           Annotation annotation = f.getAnnotation(Exclude.class);
+           if(annotation instanceof Exclude)
+           {
+               Exclude mAnnotation = (Exclude) annotation;
+               System.out.println("vertion annotetion= " + mAnnotation.version());
+           }
+           
+           
            sb.append(f.getName());
                sb.append(" = ");
                f.setAccessible(true);
@@ -111,8 +123,15 @@ public class ReflectionExample {
 
        }
        System.out.println("SomeClass " + sb);
-   }
+       ///----найдем по анатации
+///----------обращение к анатации-------------------
+//       Field field = someCls.getDeclaredField("name");
+//       Annotation annotation = field.getAnnotation(Exclude.class);
+//       Exclude mAnnotation = (Exclude) annotation;
+//       System.out.println("vertion="+(mAnnotation.version()));
+///---------------------------------------------
 
+   }
 
 ///----------------------------------------------------------------------------------
 }
@@ -125,14 +144,12 @@ class PaternClass{
     }
 }
 
-
 ///------------------------------------------------------------------------
 class SomeClass extends PaternClass
 {
-
-    @Exclude(version = 5)
-    private String name;
     @Exclude(version = 4)
+    private String name;
+
     public int vertion;
 
     public SomeClass(String name, int vertion) {
@@ -179,3 +196,5 @@ class SomeClass extends PaternClass
         this.vertion = vertion;
     }
 }
+///----------------------------------------------------------------------------------
+
