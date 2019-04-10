@@ -55,11 +55,13 @@ public class SomeClassConfig {
             e.printStackTrace();
         }
 
+//
+//       Class<Someclass> someCla = Someclass.class;
+//       Constructor<Someclass> someClassConstructor = someCla.getDeclaredConstructor(SomeClassConfig.class);
+//       Someclass someClasss= someClassConstructor.newInstance(config);
+//       System.out.println("1. someClasss  " + someClasss);
 
-//        Class<Someclass> someCla = Someclass.class;
-//        Constructor<Someclass> someClassConstructor = someCla.getDeclaredConstructor(SomeClassConfig.class);
-//        Someclass someClasss= someClassConstructor.newInstance(config);
-//        System.out.println("1. someClasss  " + someClasss);
+
 
 
         Someclass someclass=new Someclass();
