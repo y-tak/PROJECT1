@@ -1,4 +1,4 @@
-package lesson12;
+package lesson12.patterns.decorator;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,6 +1,7 @@
-package lesson12;
+package lesson12.patterns.decorator;
 
-import javax.imageio.IIOException;
+import lesson12.patterns.decorator.LaunchStatExt;
+
 import java.io.*;
 
 public class Main {

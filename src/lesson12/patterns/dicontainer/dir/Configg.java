@@ -1,15 +1,14 @@
-package lesson13.annotation;
+package lesson12.patterns.dicontainer.dir;
 
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-@Target(ElementType.FIELD)
+
+@Target(ElementType.TYPE) /// ко всему классу
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Exclude
+public @interface Configg
 {
-    int version() default 1;
+
 }
-
-

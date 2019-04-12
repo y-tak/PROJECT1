@@ -148,7 +148,7 @@ class PaternClass{
 class SomeClass extends PaternClass
 {
     @Exclude(version = 4)
-    private String name;
+private String name;
 
     public int vertion;
 
