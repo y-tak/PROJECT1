@@ -17,9 +17,13 @@ public interface Handler {
         };
 
         if (nameCommand.equals("process")) {
-           command = new ProcessComand(textProcessor);
+            command = new ProcessComand(textProcessor);
         } else if (nameCommand.equals("exit")) {
             command = new ExitCommand(textProcessor);
+        } else if (nameCommand.equals("save")) {
+            command = new SaveCommand(textProcessor);
+        } else if (nameCommand.equals("delete")) {
+            command = new DeleteCommand(textProcessor);
 
         }
         return command;
