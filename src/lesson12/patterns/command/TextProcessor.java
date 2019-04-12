@@ -34,7 +34,7 @@ public class TextProcessor {
         this.textHistory = textHistory;
     }
 
-    ///--------------
+    ///--------------------------------------------------
     public void star()
     {
 
@@ -52,7 +52,7 @@ public class TextProcessor {
             executeCommand(command);}
             else
                 textHistory.add(nameFiles);
-//
+//---------------------------------переписала под фабричный метод-------------------
 //            switch (scanner.nextLine())
 //            { case "process":
 //                executeCommand(new ProcessComand(this));
@@ -90,7 +90,7 @@ class CommandHistory
 
 
 }
-////---------------история записей-------------------
+////---------------история записей---добавлено для домашки----------------
 class TextHistory {
     private List<String> list=new LinkedList<>();
 
@@ -111,3 +111,4 @@ class TextHistory {
 
 
 }
+///----------------------------------------------------------------------------
