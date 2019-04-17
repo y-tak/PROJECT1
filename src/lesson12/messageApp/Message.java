@@ -2,12 +2,13 @@ package lesson12.messageApp;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+public class Message extends multithreading.messegeApp.Message implements Serializable {
     private String sender;
     private String messageText;
 
 
     public Message(String sender, String messageText) {
+
         this.sender = sender;
         this.messageText = messageText;
     }
