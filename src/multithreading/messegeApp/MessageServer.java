@@ -29,13 +29,11 @@ public class MessageServer {
                 while (!Thread.currentThread().isInterrupted())
                 {
                     Message message= messages.take();
-
                     for (Connection c : connectionSet)
                     {
                         c.sendMessage(message);
                     }
                     messages.remove(message);
-
                 }
             }
             catch (InterruptedException e)
@@ -94,9 +92,7 @@ public class MessageServer {
             while (true)
             {
                 Socket socket=serverSocket.accept();
-
                 Connection connection=new Connection(socket);
-
                 connectionSet.add(connection);
 
                 new Thread(new Reader(connection)).start();
