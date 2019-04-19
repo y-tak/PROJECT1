@@ -10,7 +10,7 @@ import java.util.*;
 public class Top100 {
 
     ////------------------------------------------------------------------
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         ///выполнить подсчет 100 популярных слов
 
         Runtime.getRuntime().availableProcessors();///количетсве процессов
@@ -42,52 +42,31 @@ public class Top100 {
                 }
             }
         }
-
+         ArrayList<Thread> threads=new ArrayList<>();
         ArrayList list = new ArrayList();
         int n = Runtime.getRuntime().availableProcessors();
         int sizew = words.size();
         for (int i = 0; i < n - 1; i++) {
             List list1 = words.subList(((sizew * i / n) + 1), sizew * (i + 1) / n);
-            //System.out.println("(list.size() * i / n)+1 =" +( (words.size() * i / n)+1) );
-            // System.out.println("list.size() * (i + 1) / n=" + words.size() * (i + 1) / n);
-
             MyThread myThread = new MyThread(list1);
             myThread.setAllhashMap(allhashMap);
             Thread thr1 = new Thread(myThread);
             thr1.start();
+            threads.add(thr1);
+
         }
 
-        for (int i = 0; i < n; i++)
-        {
-           // Thread.currentThread().interrupt();
-            try {
-                Thread.currentThread().join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        for (Thread tr:threads)
+        {tr.join();}
+
+
         System.out.println("завершение всех потоков");
-      //  System.out.println("Общая Mapa = " + allhashMap.toString());
-        
-
-
-
-//        ArrayList list=new ArrayList();
-//        ArrayList list1= (ArrayList) list.subList(1,list.size()/3);
-//        ArrayList list2= (ArrayList) list.subList(list.size()/3+1,list.size()*2/3);
-//        ArrayList list3= (ArrayList) list.subList(list.size()*2/3+1,list.size());
-//
-//        ///-----иницировать потоки---
-//
-//        Thread thr=new Thread(new MyThread(list1));
-//        Thread thr1=new Thread(new MyThread(list2));
-//        Thread thr2=new Thread(new MyThread(list3));
 
 ///-----------------основной поток
-
+       // System.out.println("allhashMap= " + allhashMap.entrySet());
 
         List listAll = new ArrayList(allhashMap.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
+        Collections.sort(listAll, new Comparator<Map.Entry<String, Integer>>()
         {
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2)
@@ -95,11 +74,13 @@ public class Top100 {
                 return o1.getValue()-o2.getValue();
             }
         });
+      //  System.out.println("listAll = " + listAll);
 
         for (int i=listAll.size()-1;i>listAll.size()-11;i--)
         {
-            System.out.println("лист по порядку " + list.get(i));
+            System.out.println("лист по порядку " + listAll.get(i));
         }
+
       }
 }
 
@@ -188,6 +169,8 @@ public class Top100 {
                 }
 
             }
+
+            System.out.println("записал в общую ");
         }
     }
 
