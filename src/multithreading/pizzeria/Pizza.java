@@ -19,10 +19,12 @@ public class Pizza {
         Waiter waiter1=new Waiter(newOrder,forCook);
         Waiter waiter2=new Waiter(newOrder,forCook);
         Waiter waiter3=new Waiter(newOrder,forCook);
-
         waiter1.start();
         waiter2.start();
         waiter3.start();
+
+        Cook cook=new Cook(forCook,done);
+        cook.start();
 
         Order meat=new Order("meat");
         Order jus=new Order("jus");
@@ -75,11 +77,10 @@ class Waiter extends Thread {
             }
 
         }
-
-
-
     }
 }
+
+
 class Order{
     String name;
 
@@ -91,6 +92,7 @@ class Order{
         return name;
     }
 }
+
 
 class Client extends Thread
 {
@@ -116,6 +118,9 @@ class Client extends Thread
         }
     }
 
+
+
+
 public void makeOrder(Order order)
 {
     try {
@@ -128,5 +133,45 @@ public void makeOrder(Order order)
 
 }
 
+
 }
 
+class Cook extends Thread
+{
+    ArrayBlockingQueue<Order> forCook;
+    ArrayBlockingQueue<Order> done;
+
+    public Cook(ArrayBlockingQueue<Order> forCook, ArrayBlockingQueue<Order> done) {
+        this.forCook = forCook;
+        this.done = done;
+    }
+
+    @Override
+    public void run() {
+
+        while (true)
+        {
+
+            try {
+
+                Order order= null;
+                order = forCook.take();
+                System.out.println("Повар принял заказ " + order.getName());
+               Thread.sleep(500);
+
+                done.put(order);
+                System.out.println("Повар передал на кухню " + order.getName());
+
+
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+}
+
+////создать побольше заказов..
+////и ТОр100 на очередях
