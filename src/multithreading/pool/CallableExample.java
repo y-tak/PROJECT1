@@ -15,7 +15,7 @@ public class CallableExample {
         for (int i=0;i<15;i++)
         {
             Future<Article> articleFuture=executorService.submit(articleCallable);// связали пул потоков и задачи
-           list.add(articleFuture);
+            list.add(articleFuture);
            // System.out.println("articleFuture isDone() = " + articleFuture.isDone());
           //  System.out.println("articleFuture isCancelled() = " + articleFuture.isCancelled());
             ////выполняет задачу и отправляет

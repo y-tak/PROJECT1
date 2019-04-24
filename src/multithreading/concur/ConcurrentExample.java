@@ -13,90 +13,87 @@ public class ConcurrentExample {
     //пул потоков
     ///альтернативы wait()  и  notify() и synchronize()
 
-
     public static void main(String[] args) {
-        ///CopyOnWriteArrayList вместо ArrayList
-
-
         LinkedBlockingQueue queue;
         LinkedBlockingDeque deque;
 
         LinkedTransferQueue transferQueue;
+
         PriorityBlockingQueue priorityBlockingQueue;
-        ///нельзя менять размер
-        ArrayBlockingQueue arrayBlockingQueue=new ArrayBlockingQueue(4,true);
 
-        SynchronousQueue synchronousQueue;             //очередь на один элемент
+        // нельзя изменить размер
+        ArrayBlockingQueue arrayBlockingQueue = new ArrayBlockingQueue(4, true);
 
-
-
+        SynchronousQueue synchronousQueue; // очередь на один элемент
 
 
-       /// CopyOnWriteArraySet
-        ConcurrentNavigableMap<String,Integer> map;
-        ConcurrentSkipListMap<String,Integer> rr = null;
-        rr.putIfAbsent("qwe",2);//аналоги TreeMap
-        rr.remove("qwe",2);//удаляет  TreeMap
-        rr.replace("qwe",2,5);//Заменить значения TreeMap
-        ConcurrentSkipListSet<String> set;
 
-        CopyOnWriteArrayList<String> list1 = new CopyOnWriteArrayList<>();
-        List<String> list = new CopyOnWriteArrayList<>();
-        // List<String> list = new ArrayList<>();
+
+
+
+//        HashMap map = new HashMap();
+//        map.putIfAbsent("qwe", 6);
+//        map.putIfAbsent("qwe", 89);
+
+//        CopyOnWriteArrayList вмеcто ArrayList
+        CopyOnWriteArraySet set;
+
+//        ConcurrentNavigableMap<String, Integer> map;
+        // всместо TreeMap
+//        ConcurrentSkipListMap<String, Integer> map1;
+//        map1.putIfAbsent("qwe", 4);
+//        map1.remove("qwe", 4);
+//        map1.replace("qwe", 4, 78);
+//        map1.replace("qwe", 56);
+//        ConcurrentSkipListSet<String> set1;
+
+
+
+        CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
         list.add("qwe");
-        list.add("sdf");
-        list.add("rew");
-        list.add("tyu");
-        list.add("jhg");
-        list1.add("fgh");
-        list1.addIfAbsent("dfs");///не добавляет  дубли..
+        list.add("asd");
+        list.add("zxc");
+        list.add("rty");
+        list.addIfAbsent("rty");
+
         new WriteThread(list).start();
         new ReadThread(list).start();
 
-
     }
+
 }
 
 class WriteThread extends Thread {
     private List<String> list;
-    private ArrayList<String> data=new ArrayList<>();
-    ///private ArrayList<String> data=new CopyOnWriteArrayList<>();
+    private ArrayList<String> data = new ArrayList<>();
 
-    public WriteThread(List<String> list)
-    {
+    public WriteThread(List<String> list) {
         this.list = list;
-        data.add("uyi");
-        data.add("iuy");
-        data.add("ooo");
-        data.add("tyu");
-        data.add("poi");
+        data.add("fgh");
+        data.add("vbn");
+        data.add("uio");
+        data.add("jkl");
     }
 
     @Override
     public void run() {
-        int i = 0;
+        int count = 0;
         while (true) {
-
-            if (i == data.size() - 1) i=0;
-        else
-            {
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                list.add(data.get(i));
-                i++;
-                System.out.println("WriteThread add "+data.get(i));
-
+            if (count == data.size()-1) count = 0;
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            list.add(data.get(count));
+            System.out.println("WriteThread added " + data.get(count));
+            count++;
         }
     }
 }
 
-
-class ReadThread extends Thread
-{
+class ReadThread extends Thread {
     private List<String> list;
 
     public ReadThread(List<String> list) {
@@ -105,45 +102,32 @@ class ReadThread extends Thread
 
     @Override
     public void run() {
-      while (true)
-      { String res="ReadThread res:";
+        while (true){
+            String res = "ReadThread res: ";
+            for (String str: list) {
+                if (list.contains("asd")) { // asd
+                    list.remove(str);
+                }
+                res += str + " ";
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+//            Iterator<String> iterator = list.iterator();
+//            while (iterator.hasNext()) {
+//                String next = iterator.next();
+//                res += next + " ";
+//
+//                try {
+//                    Thread.sleep(20);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
-//      for (String  str:list)
-//      {res+=str+" ";
-//             try {
-//                 Thread.sleep(500);
-//             } catch (InterruptedException e) {
-//                 e.printStackTrace();
-//             }
-//      }
-
-
-          for (String str : list) {
-              if (list.contains("sdf"))
-                  list.remove(str);
-              res+=str+" ";
-              try {
-                  Thread.sleep(500);
-              } catch (InterruptedException e) {
-                  e.printStackTrace();
-              }
-          }
-
-
-//          Iterator<String> iterator = list.iterator();
-//          while (iterator.hasNext())
-//          {
-//              String next=iterator.next();
-//              res+=next+" ";
-//              try {
-//                  Thread.sleep(500);
-//              } catch (InterruptedException e) {
-//                  e.printStackTrace();
-//              }
-//          }
-
-          System.out.println(" res " +  res);
-
-      }
+            System.out.println(res);
+        }
     }
 }
