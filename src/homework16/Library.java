@@ -8,19 +8,31 @@ public class Library {
 
     public static void main(String[] args) {
 
-        ArrayBlockingQueue<Book> onHands = new ArrayBlockingQueue<>(2, true);//
-        ArrayBlockingQueue<Book> onHall = new ArrayBlockingQueue<>(2, true);
+        ArrayBlockingQueue<Book> onHands = new ArrayBlockingQueue<>(5, true);//
+        ArrayBlockingQueue<Book> onHall = new ArrayBlockingQueue<>(5, true);
         ArrayBlockingQueue<Book> listBook = new ArrayBlockingQueue(10);
 
 
         for (int i = 0; i < 10; i++) {
-            listBook.add(new Book("книга " + i + ""));
+            listBook.add(new Book("книга " + i + "",(i%2==0)));
         }
 
+        ExecutorService fixedPool = Executors.newFixedThreadPool(4);
+
+
         Reader reader = new Reader("Max", onHall, onHands, listBook);
-        reader.start();
         Reader reader1 = new Reader("Vera", onHall, onHands, listBook);
-        reader1.start();
+        Reader reader2 = new Reader("Vova", onHall, onHands, listBook);
+        Reader reader3 = new Reader("Vlad", onHall, onHands, listBook);
+
+        fixedPool.execute(reader);
+        fixedPool.execute(reader1);
+        fixedPool.execute(reader2);
+        fixedPool.execute(reader3);
+
+        fixedPool.shutdown();
+
+
 
 
     }
@@ -42,18 +54,11 @@ public class Library {
 
     public void MakeHome(Book book) {
 
-        System.out.println(" Читатель"+name+" взял книгу домой " + book.getName());
+        System.out.println("Читатель "+name+" взял книгу домой: " + book.getName());
         try {
             onHand.put(book);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
-
-            try {
-                book = onHall.take();
-                System.out.println( "Читатель"+name+" вернул книгу из читального зала " + book.getName());
-                listBook.put(book);
-            } catch (InterruptedException e1) {
-                e.printStackTrace();
-            }
 
         }
 
@@ -64,20 +69,13 @@ public class Library {
     //-------------------------------------
     public void MakeHall(Book book
     ) {
-        System.out.println("  Читатель"+name+" взял книгу в читальный зал " + book.getName());
+        System.out.println("Читатель "+name+" взял книгу в читальный зал: " + book.getName());
         try {
 
             onHall.put(book);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
 
-            try {
-                book = onHand.take();
-                System.out.println(" Читатель"+name+" вернул книгу из дома " + book.getName());
-                listBook.put(book);
-
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
 
         }
 
@@ -86,24 +84,28 @@ public class Library {
 
     @Override
     public void run() {
-        while (true) {
+        while (listBook.size()>0) {
             Book book1 = null;
             try {
                 book1 = listBook.take();
-                MakeHall(book1);
-                MakeHome(book1);
+                Thread.sleep(100);
+               if ( book1.getHome() )
+                   MakeHome(book1);
+               else MakeHall(book1);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
+        System.out.println("больше нет книг для читателя "+name);
     }
 }
 ////--------------------------------------------
 
     class Book {
         String name;
+        Boolean Home;
 
         public void setName(String name) {
             this.name = name;
@@ -113,9 +115,24 @@ public class Library {
             return name;
         }
 
-        public Book(String name) {
+        public Book(String name, Boolean home) {
             this.name = name;
+            Home = home;
+        }
+
+        public Boolean getHome() {
+            return Home;
+        }
+
+        @Override
+        public String toString() {
+            return "Book{" +
+                    "name='" + name + '\'' +
+                    ", Home=" + Home +
+                    '}';
         }
     }
+
+
 
 
