@@ -53,8 +53,41 @@ public class FunctionalInterfacesExample {
         //написать метод который вернет новую функцию (Function)
         //возвращающую значение функции  ifTrue, если condition ==true  и  если не выполнено тогда isFalse
 
+        ///Todo: переделать на  дженерик вместо <Integer>
+
+
+
+        Predicate<Integer> condition=num->num>0;
+        Function<Integer,Integer> ifTrue=a->a+10;
+        Function<Integer,Integer> ifFalse=a->a-10;
+
+        Function<Integer,Integer> func=getFunction(condition,ifTrue,ifFalse);
+
+        System.out.println("func.apply(34) = " + func.apply(34));
+        System.out.println("func.apply(-34) = " + func.apply(-34));
+
+        ////Интерфейс Consumer<T> принимает значение и ничего не возвращает
+        ///метод void accept(T t);
+        //default метод andThen(Consumer <T> after)
+
+
+///Todo: посмотреть списки функциональных интерфейсов
+        ///BinaryOperator<T> | UnaryOperator<T>
+
+
+
+
 
     }
+
+    public static Function<Integer,Integer> getFunction
+            (     Predicate<Integer> condition,
+                    Function<Integer,Integer> ifTrue,
+                    Function<Integer,Integer> ifFalse) {
+
+        return a->condition.test(a)?ifTrue.apply(a):ifFalse.apply(a);
+    }
+
 
     
 }
