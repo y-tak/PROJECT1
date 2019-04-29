@@ -73,10 +73,19 @@ public class FunctionalInterfacesExample {
 
 ///Todo: посмотреть списки функциональных интерфейсов
         ///BinaryOperator<T> | UnaryOperator<T>
+////------------------------------------------------------------------
+        ////---------------------домашняя---------------------------------
 
+        SomeClass kate=new SomeClass("Kate");
+        SomeClass lena=new SomeClass("Lena");
 
+        Predicate<String> condition1=a->a.equals("Kate");
+        Function<SomeClass,String> ifSomeClassT=a-> a.getName()+" "+10;
+        Function<SomeClass,String> ifSomeClassF=a-> a.getName()+" "+100;
+        Function<SomeClass,String> func1=getFunctionSC(condition1,ifSomeClassT,ifSomeClassF);
 
-
+        System.out.println("func1 = " + func1.apply(kate));
+        System.out.println("func1 = " + func1.apply(lena));
 
     }
 
@@ -89,5 +98,36 @@ public class FunctionalInterfacesExample {
     }
 
 
+
+    public static Function<SomeClass,String> getFunctionSC
+            (     Predicate<String> condition1,
+                  Function<SomeClass,String> ifSomeClassT,
+                  Function<SomeClass,String> ifSomeClassF) {
+
+        return
+                a->condition1.test(a.getName())?ifSomeClassT.apply(a):ifSomeClassF.apply(a);
+    }
+
+
     
+}
+
+class SomeClass
+{
+    String name;
+
+    public SomeClass(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "SomeClass{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

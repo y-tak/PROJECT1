@@ -11,7 +11,7 @@ public class ConsumerExample {
         // ClassName:: new где ClassName не может быть абстрактным классом или интерфейсом
         Button button=factory.set("grey","Cancel");
         Button button1=factory.set("red","Esc");
-        Button button2=factory.set("green","F12");
+
         System.out.println("button = " + button);
         System.out.println("button1 = " + button1);
 
@@ -20,7 +20,7 @@ public class ConsumerExample {
         button5.setValue("Z");
         });
         makeBtn.accept(button1);///изменили кнопку
-        System.out.println("makeBtn = " + makeBtn);
+        System.out.println("button1 = " + button1);
 
 
     }
