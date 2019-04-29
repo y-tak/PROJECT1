@@ -1,64 +1,81 @@
 package lambda;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
+
 
 import java.util.concurrent.ConcurrentSkipListMap;
 
 public class LambdaStrategy {
-    public static void main(String[] args) {
-        Order order =new Order(70);
-        order.payOrder("card");
-        order.payOrder("some");
+          public static void main(String[] args) {
+
+              Order order = new Order(700);
+              order.payOrder(PayActions.CARD);
+              order.payOrder(PayActions.PAYPAL);
+           // order.payOrder("payPal");
+
+        }
     }
 
 
-}
 
-///------класс для хранения стратегий
-class StrategyRefister<T>
-{
-    public ConcurrentSkipListMap<String,T> map=new ConcurrentSkipListMap<>();
 
-    public  void  add(String actionName,T action)
-    {
-        map.put(actionName,action);
 
+    class StrategyRegister<T> {
+        private ConcurrentSkipListMap<PayActions, T> map = new ConcurrentSkipListMap<>();
+
+        public void add(PayActions actionName, T action) {
+            map.put(actionName, action);
+        }
+
+        public T get(PayActions actionName) {
+            return this.map.get(actionName);
+        }
+
+        public void remove(PayActions actionName){
+            this.map.remove(actionName);
+        }
+    }
+    ///----------------------
+
+    class Order {
+        private StrategyRegister<Runnable> strPayActions = new StrategyRegister<>();
+
+        private int sum;
+
+
+        public Order( int sum) {
+            this.sum = sum;
+
+            PayActions card = PayActions.CARD;
+            card.addStrateg(strPayActions,PayActions.CARD,sum);
+
+            PayActions payPal = PayActions.PAYPAL;
+            payPal.addStrateg(strPayActions,PayActions.PAYPAL,sum);
+
+            //payActions.add("card", ()-> System.out.println(Thread.currentThread().getName() + " card: " + sum));
+          //  payActions.add("payPal", ()-> System.out.println(Thread.currentThread().getName() + " payPal: " + sum));
+        }
+
+        public void payOrder(PayActions payName) {
+            strPayActions.get(payName).run();
+        }
     }
 
-    public  T get(String actionName)
-    {
-        return this.map.get(actionName);
-    }
 
-    public void remove(String actionName)
-    {
-        this.map.remove(actionName);
-    }
+    ///-------------------------------
 
 
-}
+    enum PayActions{
 
-//---------
-class Order {
-    private StrategyRefister<Runnable> payAction = new StrategyRefister<>();
+         CARD,PAYPAL;
 
-    private int sum;
+        public void addStrateg(StrategyRegister<Runnable> payActions, PayActions payAction, int sum){
 
-    public Order(int sum) {
-        this.sum = sum;
-        payAction.add("card", () -> System.out.println(Thread.currentThread().getName()+"Оплата по карте " + sum));
-        payAction.add("payPal", () -> System.out.println("Оплата payPal " + sum));
-    }
+            if (payAction.equals(PayActions.CARD))
+            {  payActions.add(PayActions.CARD,()-> System.out.println(Thread.currentThread().getName() +":"+ PayActions.CARD+" - "+ sum));}
+            else if (payAction.equals(PayActions.PAYPAL))
+            {  payActions.add(PayActions.PAYPAL,()-> System.out.println(Thread.currentThread().getName() + ":"+ PayActions.PAYPAL+" -  " + sum)); }
 
+        }
 
-    public void payOrder(String payName) {
-        payAction.get(payName).run();
-    }
-}
-
-//TOdo реализовать enum lkz rf;ljuj cnhfntubb
-
-enum PayAction
-{//все стратегии конструктор
-    //у разных заказов дразные стратегии card,payPal
+// все стратегии
     }
