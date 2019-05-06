@@ -8,9 +8,10 @@ public class LambdaStrategy {
           public static void main(String[] args) {
 
               Order order = new Order(700);
-              order.payOrder(PayActions.CARD);
-              order.payOrder(PayActions.PAYPAL);
-           // order.payOrder("payPal");
+
+               // order.payOrder(PayActions.CARD);
+              // order.payOrder(PayActions.PAYPAL);
+              // order.payOrder("payPal");
 
         }
     }
@@ -44,20 +45,26 @@ public class LambdaStrategy {
 
         public Order( int sum) {
             this.sum = sum;
+            for (PayActions p:PayActions.values())
+            {
+                p.addStrateg(strPayActions,p,sum);
+                strPayActions.get(p).run();
+            }
 
-            PayActions card = PayActions.CARD;
-            card.addStrateg(strPayActions,PayActions.CARD,sum);
-
-            PayActions payPal = PayActions.PAYPAL;
-            payPal.addStrateg(strPayActions,PayActions.PAYPAL,sum);
+//
+         // PayActions card = PayActions.CARD;
+//            card.addStrateg(strPayActions,PayActions.CARD,sum);
+//
+          // PayActions payPal = PayActions.PAYPAL;
+//            payPal.addStrateg(strPayActions,PayActions.PAYPAL,sum);
 
             //payActions.add("card", ()-> System.out.println(Thread.currentThread().getName() + " card: " + sum));
           //  payActions.add("payPal", ()-> System.out.println(Thread.currentThread().getName() + " payPal: " + sum));
         }
 
-        public void payOrder(PayActions payName) {
-            strPayActions.get(payName).run();
-        }
+//        public void payOrder(PayActions payName) {
+//            strPayActions.get(payName).run();
+//        }
     }
 
 
@@ -65,8 +72,20 @@ public class LambdaStrategy {
 
 
     enum PayActions{
+       //CARD,PAYPAL;
+      CARD("card"),
+      PAYPAL("paypal");
 
-         CARD,PAYPAL;
+      private  String payAction;
+
+       PayActions(String payAction)
+       {
+            this.payAction=payAction;
+       }
+
+        public String getPayAction() {
+            return payAction;
+        }
 
         public void addStrateg(StrategyRegister<Runnable> payActions, PayActions payAction, int sum){
 
