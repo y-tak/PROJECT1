@@ -24,9 +24,7 @@ public class WriterFilePool {
 class WriterR implements Runnable {
 
             private String word;
-            private File file;
 
-           
             public WriterR(String fin) {
                 this.word = fin;
 
