@@ -8,10 +8,15 @@ import java.util.Date;
 import java.util.logging.*;
 
 public class LoggedExample {
-    private static  final Logger LOGGER=Logger.getLogger(LoggedExample.class.getName());
+    /**
+     *
+     */
+    private static  final Logger LOGGER;
+
 
     static {
-       // LOGGER.setLevel(Level.SEVERE);//фатальные ошибки логируются
+        LOGGER = Logger.getLogger(LoggedExample.class.getName());
+        // LOGGER.setLevel(Level.SEVERE);//фатальные ошибки логируются
         //LOGGER.setLevel(Level.WARNING);//предупреждени
         //LOGGER.setLevel(Level.INFO);//сообщений
         LOGGER.setLevel(Level.ALL);//все
@@ -29,16 +34,24 @@ public class LoggedExample {
             LOGGER.addHandler(new FileHandler("loggerExample.log.xml"));
 
             ///вывод в виде простого текста
-            FileHandler fileHandler=new FileHandler("loggerExample.log");
-          //  fileHandler.setFormatter( new SimpleFormatter());
-            fileHandler.setFormatter( new CustomFormatter());
+            FileHandler fileHandler = new FileHandler("loggerExample.log");
+            //  fileHandler.setFormatter( new SimpleFormatter());
+            fileHandler.setFormatter(new CustomFormatter());
+
+            /////-------------домашка----------------------------
+            FileHandler fileHandler1 = new FileHandler("loggerExample1.log");
+            fileHandler1.setFormatter(new CustomFormatter());
+            LOGGER.addHandler(fileHandler1);
+            ///---------------------------------------------------------------------------------------
 
             LOGGER.addHandler(fileHandler);
 
-        } catch (IOException e)
-        {LOGGER.warning("FileHandler не доступен");}
 
+        } catch (IOException e) {
+            LOGGER.warning("FileHandler не доступен");
         }
+
+    }
 
 
 
