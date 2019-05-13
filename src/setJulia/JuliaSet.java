@@ -19,6 +19,7 @@ public class JuliaSet {
            LOGGER.addHandler(new FileHandler("loggerJulia.log.xml"));
             FileHandler fileHandler=new FileHandler("loggerJulia.log");
             fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,8 +105,8 @@ public class JuliaSet {
         x=0;y=0;zx=0;zy=0;xt=0;
 
 
-        ArrayList<Double> setZX=new ArrayList<>();
-        ArrayList<Double> setZY=new ArrayList<>();
+      ///  ArrayList<Double> setZX=new ArrayList<>();
+      ///  ArrayList<Double> setZY=new ArrayList<>();
         ArrayList<Double> arX=new ArrayList<>();
         ArrayList<Double> arY=new ArrayList<>();
          ///множества мандельброта - фракталы мандельброта, z^2+c
@@ -136,10 +137,14 @@ public class JuliaSet {
         {
 
             int iter = 0;
-            int max_iter = 10;
+            int max_iter = 100;
             zx=arX.get(i);
             zy=arY.get(i);
             LOGGER.info("итерация "+i+": zx= " +  zx+ " zy= "+zy);
+
+
+            ArrayList<Double> setZX=new ArrayList<>();
+            ArrayList<Double> setZY=new ArrayList<>();
 
             while ((Math.pow(zx,2)-Math.pow(zy,2))<4 && iter< max_iter)
             {
@@ -163,6 +168,7 @@ public class JuliaSet {
             LOGGER.info("setZX"+ Arrays.toString(setZX.toArray()));
             LOGGER.info("setZY"+ Arrays.toString(setZY.toArray()));
 
+           /// drawPixel((x, y), color(iter))
 
         }
 
