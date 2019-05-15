@@ -1,6 +1,6 @@
 package lesson12.patterns.decorator;
 
-import lesson12.patterns.decorator.LaunchStatExt;
+
 
 import java.io.*;
 
@@ -39,13 +39,13 @@ public class Main {
 //        }
 
         File file = new File("stat2.bin");
-        LaunchStatExt stat=null;
+        LaunchStat stat=null;
         if (!file.exists())
-        {stat=new LaunchStatExt();
+        {stat=new LaunchStat();
         }
         else
             try (ObjectInputStream obg = new ObjectInputStream(new FileInputStream(file))) {
-                stat = (LaunchStatExt) obg.readObject();
+                stat = (LaunchStat) obg.readObject();
 
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
